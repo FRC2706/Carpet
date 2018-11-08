@@ -1,0 +1,14 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+<<<<<<< HEAD
+Scouting/Scouting.iml
+*.iml
+/Scouting/Scouting.iml
+Scouting/src/main/java/ca/team2706/scouting/mcmergemanager/powerup2018/gui/PostGame.java
+Scouting/Scouting.iml
+*.iml
