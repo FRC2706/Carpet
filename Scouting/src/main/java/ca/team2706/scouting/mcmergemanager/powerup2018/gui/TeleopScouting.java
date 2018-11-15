@@ -22,6 +22,7 @@ import ca.team2706.scouting.mcmergemanager.powerup2018.dataObjects.CubeDroppedEv
 import ca.team2706.scouting.mcmergemanager.powerup2018.dataObjects.CubePickupEvent;
 import ca.team2706.scouting.mcmergemanager.powerup2018.dataObjects.CubePlacementEvent;
 import ca.team2706.scouting.mcmergemanager.powerup2018.dataObjects.PreGameObject;
+import ca.team2706.scouting.mcmergemanager.powerup2018.dataObjects.PostGameObject;
 import ca.team2706.scouting.mcmergemanager.powerup2018.dataObjects.Event;
 import ca.team2706.scouting.mcmergemanager.powerup2018.dataObjects.TeleopScoutingObject;
 import ca.team2706.scouting.mcmergemanager.steamworks2017.gui.Popups.FragmentListener;
@@ -265,13 +266,14 @@ public class TeleopScouting extends AppCompatActivity implements FragmentListene
 
 
     public void startedClimbing(View view){
-        Intent intent = new Intent(this, PostGame.class);
+        Intent intent = new Intent(this, PostGameObject.class);
         intent.putExtra("PreGameData", getIntent().getSerializableExtra("PreGameData"));
         intent.putExtra("AutoScoutingData", getIntent().getSerializableExtra("AutoScoutingData"));
         intent.putExtra("TeleopScoutingData", teleopScoutingObject);
         startActivity(intent);
 
     }
+
 
 }
 
