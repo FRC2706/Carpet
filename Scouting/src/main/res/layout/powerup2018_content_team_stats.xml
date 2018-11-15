@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ca.team2706.scouting.mcmergemanager.powerup2018.gui.TeamStatsActivity"
+    tools:context="ca.team2706.scouting.memo.powerup2018.gui.TeamStatsActivity"
     tools:showIn="@layout/powerup2018_activity_team_stats"
     tools:ignore="HardcodedText">
 
