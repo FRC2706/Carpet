@@ -27,5 +27,20 @@ public class BlueAllianceUtils {
     private static final String BASE_URL = "http://www.thebluealliance.com/api/v3/";
     private static final String AUTH_KEY = "8GLetjJXz2pNCZuY0NnwejAw0ULn9TzbsYeLkYyzeKwDeRsK9MiDnxEGgy6UksW1";
 
-    
+
+    private Activity mActivity;
+
+    private static boolean sPermissionsChecked = false;
+
+    public static boolean isConnected(Activity activity) {
+        if (activity == null)
+            return false;
+
+        // Check if they have enabled the permissions
+
+        ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
 }
