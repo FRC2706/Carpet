@@ -147,4 +147,17 @@ public class FTPclient {
         }
     }
 
+    public void uploadFile(String filename){
+        if(!initilized) return;
+        String RemotePath = filename.split("MCMergeManager")[1];
+        RemotePath = "/MCMergeManager" + RemotePath;
+        Log.i("FTPClient|uploadSync", "\nUploading: " + filename + "\nTo: " + RemotePath);
+        try {
+            InputStream is = new FileInputStream(filename);
+            ftpClient.storeFile(RemotePath, is);
+        }catch(Exception e) {
+            return;
+        }
+    }
+
 }
