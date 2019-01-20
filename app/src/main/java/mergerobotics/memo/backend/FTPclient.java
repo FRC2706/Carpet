@@ -149,8 +149,8 @@ public class FTPclient {
 
     public void uploadFile(String filename){
         if(!initilized) return;
-        String RemotePath = filename.split("MCMergeManager")[1];
-        RemotePath = "/MCMergeManager" + RemotePath;
+        String RemotePath = filename;
+        RemotePath = "/" + RemotePath;
         Log.i("FTPClient|uploadSync", "\nUploading: " + filename + "\nTo: " + RemotePath);
         try {
             InputStream is = new FileInputStream(filename);
