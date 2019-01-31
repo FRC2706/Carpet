@@ -106,7 +106,7 @@
     <Button
         android:id="@+id/delivery_button"
         android:layout_width="177dp"
-        android:layout_height="70dp"
+        android:layout_height="66dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="28dp"
@@ -115,36 +115,10 @@
         android:background="@drawable/roundedbutton"
         android:text="Delivery"
         android:textColor="#ffffff"
-        android:textSize="22sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cargo_button" />
-
-    <Button
-        android:id="@+id/deadness_button"
-        android:layout_width="137dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/roundedbutton_grey"
-        android:text="Deadness"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delivery_button" />
-
-    <Button
-        android:id="@+id/defense_button"
-        android:layout_width="137dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/roundedbutton_grey"
-        android:text="Defense"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delivery_button" />
 
 </android.support.constraint.ConstraintLayout>
