@@ -139,7 +139,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title2"
         app:layout_constraintVertical_bias="0.0" />
@@ -159,6 +159,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.577"
         app:layout_constraintStart_toEndOf="@+id/autoHatchPickup"
         app:layout_constraintTop_toBottomOf="@+id/title2"
         app:layout_constraintVertical_bias="0.0" />
@@ -174,7 +175,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="68dp"
         android:background="@drawable/roundedbutton"
-        android:text="Deliverd"
+        android:text="Delivered to..."
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
