@@ -7,7 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_prematch"
-
     tools:context="mergerobotics.memo.gui.prematchActivity">
 
     <EditText
@@ -95,6 +94,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundedbutton"
         android:text="Start Match"
+        android:onClick="sandstormPage"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
