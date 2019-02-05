@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity_teleop_2019"
+            android:name=".gui.teleopActivity2019"
             android:label="@string/title_activity_teleop_2019"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 

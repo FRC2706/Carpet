@@ -10,18 +10,30 @@ import android.view.View;
 
 import mergerobotics.memo.R;
 
-public class sandstormActivity extends AppCompatActivity {
+public class teleopActivity2019 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sandstorm);
+        setContentView(R.layout.activity_teleop_2019);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
-    public void teleopPage(View view){
-        Intent intent = new Intent(this, teleopActivity2019.class);
+    //OnClick methods for popups
+    public void pickupHatch(View view){
+        Intent intent = new Intent(this, hatchPickupFragment.class);
         startActivity(intent);
     }
+
+    public void pickupCargo(View view){
+        Intent intent = new Intent(this, cargoPickupFragment.class);
+        startActivity(intent);
+    }
+
+    public void gamePieceDelivery(View view){
+        Intent intent = new Intent(this, deliveryFragment.class);
+        startActivity(intent);
+    }
+
 }
