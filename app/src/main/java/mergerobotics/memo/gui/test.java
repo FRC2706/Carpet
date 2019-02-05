@@ -1,6 +1,5 @@
 package mergerobotics.memo.gui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,18 +9,15 @@ import android.view.View;
 
 import mergerobotics.memo.R;
 
-public class sandstormActivity extends AppCompatActivity {
+public class test extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sandstorm);
+        setContentView(R.layout.activity_test);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
     }
 
-    public void teleopPage(View view){
-        Intent intent = new Intent(this, teleopActivity2019.class);
-        startActivity(intent);
-    }
 }
