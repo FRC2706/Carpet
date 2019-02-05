@@ -215,6 +215,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundedbutton"
+        android:onClick="teleopPage"
         android:text="teleop"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
