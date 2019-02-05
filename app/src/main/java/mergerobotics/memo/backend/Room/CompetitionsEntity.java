@@ -8,18 +8,46 @@ import android.arch.persistence.room.Database;
 
 @Entity(tableName = "competitions")
 public class CompetitionsEntity {
+
     @NonNull
 
     @PrimaryKey
-    private int mId;
+    public String mId;
 
     @ColumnInfo(name = "competition")
-    private String mCompName;
+    public String mCompName;
 
     @ColumnInfo(name = "year")
-    private String mCompYear;
+    public String mCompYear;
 
-    public CompetitionsEntity(String Id, String CompName, String CompYear){
-        this.mCompName = CompName;
+    public CompetitionsEntity(String mId, String mCompName, String mCompYear){
+        this.mCompName = mCompName;
+        this.mCompYear = mCompYear;
+        this.mId = mId;
     }
+
+    public String getmId() {
+        return mId;
+    }
+
+    public void setmId(@NonNull String mId) {
+        this.mId = mId;
+    }
+
+    public String getmCompName() {
+        return mCompName;
+    }
+
+    public void setmCompName(String mCompName) {
+        this.mCompName = mCompName;
+    }
+
+    public String getmCompYear() {
+        return mCompYear;
+    }
+
+    public void setmCompYear(String mCompYear) {
+        this.mCompYear = mCompYear;
+    }
+
 }

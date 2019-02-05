@@ -11,6 +11,6 @@ import mergerobotics.memo.backend.Room.CompetitionsEntity;
 @Database(entities = {CompetitionsEntity.class}, version = 1)
 public abstract class StatsDatabase extends RoomDatabase{
 
-
+    public abstract TournDao tournDao();
 
 }

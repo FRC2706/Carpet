@@ -13,6 +13,6 @@ import java.util.*;
 public interface TournDao {
 
     @Query("select * from competitions where year=2018 order by competition asc")
-    ArrayList<String> getAllTourn();
+    List<CompetitionsEntity> getAllTourn();
 
 }
