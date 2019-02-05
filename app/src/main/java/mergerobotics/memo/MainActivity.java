@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import mergerobotics.memo.gui.prematchActivity;
+import mergerobotics.memo.gui.test;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void changePage(View view){
         Intent name = new Intent(this, prematchActivity.class);
+        startActivity(name);
+    }
+
+    public void changeTestPage(View view){
+        Intent name = new Intent(this, test.class);
         startActivity(name);
     }
 

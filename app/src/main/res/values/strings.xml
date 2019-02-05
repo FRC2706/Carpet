@@ -4,4 +4,5 @@
     <string name="PROPERTY_event">Event</string>
     <string name="TBA_TEST_EVENT">TestEvent</string>
     <string name="title_activity_sandstorm">sandstormActivity</string>
+    <string name="title_activity_test">test</string>
 </resources>
