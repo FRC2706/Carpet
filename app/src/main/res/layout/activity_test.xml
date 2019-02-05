@@ -13,13 +13,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <EditText
+    <TextView
         android:id="@+id/TestText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Karthik For Tekken " />
+        android:text="TextView" />
 
 
 </android.support.design.widget.CoordinatorLayout>
