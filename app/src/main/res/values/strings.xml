@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MEMO</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_teleop_2019">activity_teleop_2019</string>
+    <string name="PROPERTY_event">Event</string>
+    <string name="TBA_TEST_EVENT">TestEvent</string>
+    <string name="title_activity_sandstorm">sandstormActivity</string>
+    <string name="title_activity_test">test</string>
 </resources>
