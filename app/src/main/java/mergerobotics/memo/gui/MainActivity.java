@@ -1,4 +1,4 @@
-package mergerobotics.memo;
+package mergerobotics.memo.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import mergerobotics.memo.R;
 import mergerobotics.memo.gui.prematchActivity;
 import mergerobotics.memo.gui.test;
 
