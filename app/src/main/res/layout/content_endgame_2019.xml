@@ -13,7 +13,7 @@
         android:minHeight="700dp">
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/climbSeekBar"
         android:layout_width="303dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
@@ -29,11 +29,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/climbTimeTitle"
         app:layout_constraintVertical_bias="0.0" />
 
     <CheckBox
-        android:id="@+id/checkBox1"
+        android:id="@+id/lvl1checkBox"
         android:layout_width="113dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
@@ -51,7 +51,7 @@
         app:layout_constraintVertical_bias="0.085" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/lvl2checkBox"
         android:layout_width="113dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
@@ -65,11 +65,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox1"
+        app:layout_constraintTop_toBottomOf="@+id/lvl1checkBox"
         app:layout_constraintVertical_bias="0.002" />
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/lvl3checkBox"
         android:layout_width="113dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
@@ -83,11 +83,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2"
+        app:layout_constraintTop_toBottomOf="@+id/lvl2checkBox"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/deadnessTitle"
         android:layout_width="191dp"
         android:layout_height="37dp"
         android:layout_marginStart="8dp"
@@ -103,11 +103,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:layout_constraintTop_toBottomOf="@+id/climbSeekBar"
         app:layout_constraintVertical_bias="0.0" />
 
     <SeekBar
-        android:id="@+id/seekBar2"
+        android:id="@+id/deadnessSeekBar"
         android:layout_width="303dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
@@ -122,31 +122,31 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/deadnessTitle"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="191dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="Defence (%)"
-        android:textColor="#663399"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar2"
-        app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/defenseTitle"
+            android:layout_width="191dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Defense (%)"
+            android:textColor="#663399"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deadnessSeekBar"
+            app:layout_constraintVertical_bias="0.0" />
 
     <SeekBar
-        android:id="@+id/seekBar3"
+        android:id="@+id/defenceSeekbar"
         android:layout_width="303dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
@@ -161,11 +161,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/defenseTitle"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/climbTimeTitle"
         android:layout_width="191dp"
         android:layout_height="37dp"
         android:layout_marginStart="8dp"
@@ -181,11 +181,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox3"
+        app:layout_constraintTop_toBottomOf="@+id/lvl3checkBox"
         app:layout_constraintVertical_bias="0.055" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/exitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -202,7 +202,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seekBar3"
+            app:layout_constraintTop_toBottomOf="@+id/defenceSeekbar"
             app:layout_constraintVertical_bias="0.316" />
 
     <LinearLayout
@@ -220,7 +220,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"><![CDATA[
+        app:layout_constraintTop_toBottomOf="@+id/exitButton"><![CDATA[
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -252,7 +252,7 @@
             android:nextFocusUp="@id/comment" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/goButton"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_weight="1"
