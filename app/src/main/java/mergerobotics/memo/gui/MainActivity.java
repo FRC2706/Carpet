@@ -40,10 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     public void changePage(View view){
         Intent name = new Intent(this, prematchActivity.class);
         startActivity(name);
     }
+
+
 
     public void changeTestPage(View view){
         Intent name = new Intent(this, test.class);
@@ -68,10 +71,17 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            settings();
             return true;
+
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void settings(){
+            Intent name = new Intent(this, settingsGUI.class);
+            startActivity(name);
     }
 
 }

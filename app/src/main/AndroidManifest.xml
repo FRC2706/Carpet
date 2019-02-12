@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".gui.endgame"></activity>
+        <activity android:name=".gui.settingsGUI"></activity>
+        <activity android:name=".gui.endgame" />
         <activity
             android:name=".gui.test"
             android:label="@string/title_activity_test"
