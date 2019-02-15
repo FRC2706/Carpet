@@ -1,16 +1,22 @@
 package mergerobotics.memo.gui;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import mergerobotics.memo.R;
+import mergerobotics.memo.gui.CargoPickupFragment;
+import mergerobotics.memo.gui.FragmentListener;
 
 public class teleopActivity2019 extends AppCompatActivity {
+
+    public FragmentListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,20 +26,11 @@ public class teleopActivity2019 extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    //OnClick methods for popups
-    public void pickupHatch(View view){
-        Intent intent = new Intent(this, hatchPickupFragment.class);
-        startActivity(intent);
-    }
+    //methods for popups
 
-    public void pickupCargo(View view){
-        Intent intent = new Intent(this, cargoPickupFragment.class);
-        startActivity(intent);
+    private void showCargoPickup(){
+        FragmentManager fm = getFragmentManager();
+        CargoPickupFragment cargoPickupFragment = CargoPickupFragment.newInstance("subscribe", listener);
+        cargoPickupFragment.show(fm, "fragment_cargopickup");
     }
-
-    public void gamePieceDelivery(View view){
-        Intent intent = new Intent(this, deliveryFragment.class);
-        startActivity(intent);
-    }
-
 }
