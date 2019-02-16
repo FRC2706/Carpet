@@ -168,7 +168,7 @@ public class MatchSchedule implements Serializable {
             jsonArr = new JSONArray(jsonSchedule);
 
             // Just for testing the Match Prediction, match #3 does not have a score
-            // if we're in the test event from the previous year.
+            // if we're in the Test event from the previous year.
             SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(App.getContext());
             String eventName = SP.getString(App.getContext().getResources().getString(R.string.PROPERTY_event), "<Not Set>");
             boolean testEvent = eventName.equals(App.getContext().getResources().getString(R.string.TBA_TEST_EVENT));
@@ -200,7 +200,7 @@ public class MatchSchedule implements Serializable {
                 }
 
                 // Just for testing the Match Prediction, match #3 does not have a score
-                // if we're in the test event from the previous year.
+                // if we're in the Test event from the previous year.
                 if (testEvent && match.getMatchNo() == 3) {
                     match.setBlueScore(-1);
                     match.setRedScore(-1);
@@ -249,7 +249,7 @@ public class MatchSchedule implements Serializable {
             jsonArr = new JSONArray(jsonSchedule);
 
             // Just for testing the Match Prediction, match #3 does not have a score
-            // if we're in the test event from the previous year.
+            // if we're in the Test event from the previous year.
             SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(App.getContext());
             String eventName = SP.getString(App.getContext().getResources().getString(R.string.PROPERTY_event), "<Not Set>");
             boolean testEvent = eventName.equals(App.getContext().getResources().getString(R.string.TBA_TEST_EVENT));

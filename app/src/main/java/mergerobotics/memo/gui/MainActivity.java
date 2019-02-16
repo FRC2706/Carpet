@@ -9,11 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import mergerobotics.memo.R;
-import mergerobotics.memo.gui.prematchActivity;
-import mergerobotics.memo.gui.test;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,14 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void changePage(View view){
-        Intent name = new Intent(this, prematchActivity.class);
+        Intent name = new Intent(this, PrematchActivity.class);
         startActivity(name);
     }
 
 
 
     public void changeTestPage(View view){
-        Intent name = new Intent(this, test.class);
+        Intent name = new Intent(this, Test.class);
         startActivity(name);
     }
 
@@ -80,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void settings(){
-            Intent name = new Intent(this, settingsGUI.class);
+            Intent name = new Intent(this, SettingsGUI.class);
             startActivity(name);
     }
 

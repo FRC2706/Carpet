@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import mergerobotics.memo.R;
 
-public class settingsGUI extends AppCompatActivity {
+public class SettingsGUI extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

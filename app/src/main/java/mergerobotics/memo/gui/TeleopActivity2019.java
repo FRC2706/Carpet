@@ -2,15 +2,13 @@ package mergerobotics.memo.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import mergerobotics.memo.R;
 
-public class teleopActivity2019 extends AppCompatActivity {
+public class TeleopActivity2019 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,23 +20,23 @@ public class teleopActivity2019 extends AppCompatActivity {
 
 
     public void endgamePage(View view){
-        Intent intent = new Intent(this, endgame.class);
+        Intent intent = new Intent(this, Endgame.class);
         startActivity(intent);
     }
 
     //OnClick methods for popups
     public void pickupHatch(View view){
-        Intent intent = new Intent(this, hatchPickupFragment.class);
+        Intent intent = new Intent(this, HatchPickupFragment.class);
         startActivity(intent);
     }
 
     public void pickupCargo(View view){
-        Intent intent = new Intent(this, cargoPickupFragment.class);
+        Intent intent = new Intent(this, CargoPickupFragment.class);
         startActivity(intent);
     }
 
     public void gamePieceDelivery(View view){
-        Intent intent = new Intent(this, deliveryFragment.class);
+        Intent intent = new Intent(this, DeliveryFragment.class);
         startActivity(intent);
     }
 

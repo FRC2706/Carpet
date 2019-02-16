@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import mergerobotics.memo.R;
 
-public class prematchActivity extends AppCompatActivity {
+public class PrematchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class prematchActivity extends AppCompatActivity {
         String match = matchNum.getText().toString();
 
         if (!scout.matches("") && !team.matches("") && !match.matches("")) {
-            Intent intent = new Intent(this, sandstormActivity.class);
+            Intent intent = new Intent(this, SandstormActivity.class);
             startActivity(intent);
         }
 

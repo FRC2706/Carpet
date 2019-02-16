@@ -7,16 +7,16 @@ import android.view.View;
 
 import mergerobotics.memo.R;
 
-public class hatchPickupFragment extends AppCompatActivity {
+public class CargoPickupFragment extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_hatchpickup);
+        setContentView(R.layout.fragment_cargopickup);
     }
 
     /*public void teleopPage(View view){
-        Intent intent = new Intent(this, teleopActivity2019.class);
+        Intent intent = new Intent(this, TeleopActivity2019.class);
         startActivity(intent);
     }*/
 }
