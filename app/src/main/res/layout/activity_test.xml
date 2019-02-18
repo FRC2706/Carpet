@@ -13,11 +13,24 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/TestText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TextView" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/TestText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/textview"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/TestBut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Countup" />
+    </LinearLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

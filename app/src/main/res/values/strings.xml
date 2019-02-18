@@ -6,4 +6,6 @@
     <string name="TBA_TEST_EVENT">TestEvent</string>
     <string name="title_activity_sandstorm">sandstormActivity</string>
     <string name="title_activity_test">test</string>
+    <string name="comic_sans">Comic sans</string>
+    <string name="textview">TextView</string>
 </resources>
