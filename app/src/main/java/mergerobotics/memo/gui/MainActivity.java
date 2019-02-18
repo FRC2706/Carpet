@@ -1,4 +1,4 @@
-package mergerobotics.memo;
+package mergerobotics.memo.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import mergerobotics.memo.R;
 import mergerobotics.memo.gui.prematchActivity;
 import mergerobotics.memo.gui.test;
 
@@ -39,10 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     public void changePage(View view){
         Intent name = new Intent(this, prematchActivity.class);
         startActivity(name);
     }
+
+
 
     public void changeTestPage(View view){
         Intent name = new Intent(this, test.class);
@@ -67,10 +71,17 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            settings();
             return true;
+
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void settings(){
+            Intent name = new Intent(this, settingsGUI.class);
+            startActivity(name);
     }
 
 }

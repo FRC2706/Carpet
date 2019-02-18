@@ -20,6 +20,12 @@ public class teleopActivity2019 extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+
+    public void endgamePage(View view){
+        Intent intent = new Intent(this, endgame.class);
+        startActivity(intent);
+    }
+
     //OnClick methods for popups
     public void pickupHatch(View view){
         Intent intent = new Intent(this, hatchPickupFragment.class);
