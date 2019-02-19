@@ -53,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(name);
     }
 
+    public void changeteaminfoPage(View view){
+        Intent name = new Intent(this, teamInfo.class);
+        startActivity(name);
+    }
+
 
 
     @Override
