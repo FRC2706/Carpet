@@ -22,11 +22,5 @@
 
     <include layout="@layout/content_teleop_2019" />
 
-    <fragment android:name="mergerobotics.memo.gui.CargoPickupFragment"
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </fragment>
 
 </android.support.design.widget.CoordinatorLayout>
