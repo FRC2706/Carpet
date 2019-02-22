@@ -2,8 +2,6 @@ package mergerobotics.memo.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -24,4 +22,20 @@ public class sandstormActivity extends AppCompatActivity {
         Intent intent = new Intent(this, teleopActivity2019.class);
         startActivity(intent);
     }
+
+    //OnClick methods for cargo, hatch and delivery buttons
+    public void cargoPickupPage(View view){
+        Intent intent = new Intent(this, CargoPickupActivity.class);
+        startActivity(intent);
+    }
+    public void hatchPickupPage(View view){
+        Intent intent = new Intent(this, HatchPickupActivity.class);
+        startActivity(intent);
+    }
+
+    public void deliveryCyclePage(View view){
+        Intent intent = new Intent(this, DeliveryCycleActivity.class);
+        startActivity(intent);
+    }
+
 }
