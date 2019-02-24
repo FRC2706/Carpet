@@ -1,4 +1,4 @@
-package mergerobotics.memo.backend.Room;
+package mergerobotics.memo.db;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
