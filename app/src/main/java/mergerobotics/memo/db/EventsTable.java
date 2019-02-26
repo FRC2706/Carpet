@@ -8,7 +8,20 @@ import android.util.Log;
 
 import mergerobotics.memo.dataobjects.Event;
 
-import static mergerobotics.memo.db.EventsContract.EventsEntry.*;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_COMPETITION;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_END_TIME;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_EXTRA;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_MATCH;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SCOUT_NAME;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SCOUT_TEAM;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SIGNATURE;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_START_TIME;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SUCCESS;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SYNC_TIME;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_TEAM;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_TYPE;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_UID;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.TABLE_NAME;
 
 public class EventsTable {
     private EventsHelper mEventsHelper;
@@ -21,8 +34,11 @@ public class EventsTable {
     {
         SQLiteDatabase dbEvents = mEventsHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_NAME_TEAM_NUMBER, Integer.toString(event.teamNum));
-        contentValues.put(COLUMN_NAME_COMPETITION, Integer.toString(event.competition));
+        contentValues.put(COLUMN_NAME_SYNC_TIME, event.startTime);
+        contentValues.put(COLUMN_NAME_TYPE, event.eventType.name());
+        contentValues.put(COLUMN_NAME_TEAM, Integer.toString(event.teamNum));
+        contentValues.put(COLUMN_NAME_MATCH, event.match);
+        contentValues.put(COLUMN_NAME_COMPETITION, event.competition);
         contentValues.put(COLUMN_NAME_SUCCESS, event.success);
         contentValues.put(COLUMN_NAME_START_TIME, event.startTime);
         contentValues.put(COLUMN_NAME_END_TIME, event.endTime);
@@ -36,7 +52,7 @@ public class EventsTable {
     public String getData()
     {
         SQLiteDatabase db = mEventsHelper.getWritableDatabase();
-        String[] columns = {COLUMN_NAME_UID,COLUMN_NAME_TYPE,COLUMN_NAME_TEAM_NUMBER,COLUMN_NAME_TEAM_NUMBER,
+        String[] columns = {COLUMN_NAME_UID,COLUMN_NAME_TYPE, COLUMN_NAME_TEAM, COLUMN_NAME_MATCH,
                 COLUMN_NAME_COMPETITION,COLUMN_NAME_SUCCESS,COLUMN_NAME_START_TIME,COLUMN_NAME_END_TIME,
                 COLUMN_NAME_EXTRA,COLUMN_NAME_SCOUT_NAME, COLUMN_NAME_SCOUT_TEAM, COLUMN_NAME_SIGNATURE };
         Cursor cursor =db.query(TABLE_NAME, columns, "*",null,null,null,null,null);
@@ -46,6 +62,8 @@ public class EventsTable {
             int cid= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_UID));
             double timestamp= cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_SYNC_TIME));
             String eventType= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TYPE));
+            int team= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TEAM));
+            int match= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_MATCH));
             int competition= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_COMPETITION));
             int success= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUCCESS));
             double startTime= cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_START_TIME));
@@ -58,6 +76,8 @@ public class EventsTable {
             buffer.append(cid+ " " +
                     Double.toString(timestamp) + " " +
                     eventType + " " +
+                    Integer.toString(team) + " " +
+                    Integer.toString(match) + " " +
                     Integer.toString(competition) + " " +
                     Integer.toString(success) + " " +
                     Double.toString(startTime) + " " +
@@ -94,5 +114,11 @@ public class EventsTable {
 
     }
 
+    public void onDeleteRequest() {
+        SQLiteDatabase db = mEventsHelper.getWritableDatabase();
+        String DROP_TABLE ="DROP TABLE IF EXISTS "+TABLE_NAME;
+        Log.i(getClass().getName(), "deleting " + TABLE_NAME );
+        db.execSQL(DROP_TABLE);
+    }
 }
 

@@ -9,6 +9,8 @@ import android.view.View;
 
 import mergerobotics.memo.R;
 import mergerobotics.memo.dataobjects.Event;
+import mergerobotics.memo.db.EventsHelper;
+import mergerobotics.memo.db.EventsTable;
 
 import static mergerobotics.memo.utilities.Utilities.toastPlusLog;
 
@@ -53,6 +55,8 @@ public class sandstormActivity extends AppCompatActivity {
 
     public void teleopPage(View view){
         Intent teleopIntent = new Intent(this, teleopActivity2019.class);
+        EventsTable eTable = new EventsTable(this);
+        EventsHelper eHelper = new EventsHelper(this);
 
         // @TODO Need to pass the start level and control input from user, hardcode for now and store in comments
         String tempStartData = new String (scoutName + " team: " + Integer.toString(teamNum) +
@@ -60,12 +64,24 @@ public class sandstormActivity extends AppCompatActivity {
                  );
 
         // Save the non-cycle event data in the database before proceeding to Teleop
-        // for now just echo values before proceeding
+        // echo values before proceeding
         toastPlusLog( this, tempStartData);
 
-        Event startingEvent = new Event(Event.Phase.SAND, Event.Cycle.START, teamNum, matchNum, 1, startTime,
-                SystemClock.currentThreadTimeMillis(), tempStartData, scoutName, scoutTeam);
+        Event startingEvent = new Event(Event.Phase.SAND, Event.Cycle.START, teamNum, matchNum, "FIRST",
+                1, startTime, SystemClock.currentThreadTimeMillis(),
+                " Start lvl 1 Driver CrossHabline", scoutName, scoutTeam);
 
+        // Insert the event
+        long id = eTable.insertData(startingEvent, "jpl");
+        if(id<=0)
+        {
+            // Failed to update the database
+            toastPlusLog( this, tempStartData + " Failed");
+        } else
+        {
+            // Event saved to  the database
+            toastPlusLog( this, tempStartData + " Saved");
+        }
 
         // Pass on the user input to next activity TODO
 

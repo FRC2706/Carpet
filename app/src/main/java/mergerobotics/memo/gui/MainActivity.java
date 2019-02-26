@@ -11,9 +11,17 @@ import android.view.MenuItem;
 import android.view.View;
 
 import mergerobotics.memo.R;
+import mergerobotics.memo.dataobjects.Event;
 
 public class MainActivity extends AppCompatActivity {
-    // remove EditText scoutName, scoutTeam, teamNum , matchNum, updateold, updatenew, delete;
+
+    // globalIntent and me are used to make it easier
+    // to reference MainActivity and share relevant data
+    // Ref: from powerup
+    Intent globalIntent;
+    public static MainActivity me;
+
+    public static Event eventData; // tbd, not used yet
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -8,15 +8,17 @@ import android.widget.Toast;
 
 import static mergerobotics.memo.db.EventsContract.DATABASE_NAME;
 import static mergerobotics.memo.db.EventsContract.DATABASE_VERSION;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SCOUT_NAME;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_UID;
 
 public class EventsHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME = "events";
-    private static final String EVENT_TAB = "CREATE TABLE events ( " +
+    private static final String EVENT_TAB = "CREATE TABLE TABLE_NAME ( " +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             " sync_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, " +
             " type VARCHAR(10) NOT NULL, " +
-            " team_number SMALLINT NOT NULL, " +
+            " team SMALLINT NOT NULL, " +
             " match_number TINYINT NOT NULL, " +
             " competition VARCHAR(16) NOT NULL, " +
             " success TINYINT NOT NULL, "+
@@ -26,6 +28,11 @@ public class EventsHelper extends SQLiteOpenHelper {
             " scout_name VARCHAR(16) NOT NULL, "+
             " scout_team SMALLINT NOT NULL, "+
             " signature TEXT NOT NULL)";
+
+    private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+
+            " ("+COLUMN_NAME_UID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            COLUMN_NAME_SCOUT_NAME+" VARCHAR(255) ,"+
+            COLUMN_NAME_SCOUT_NAME+" VARCHAR(225));";
 
     private static final String DROP_TABLE ="DROP TABLE IF EXISTS "+TABLE_NAME;
     private Context context;
@@ -100,6 +107,5 @@ public class EventsHelper extends SQLiteOpenHelper {
                 Toast.LENGTH_SHORT);
         myToast.show();
     }
-
 
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import mergerobotics.memo.R;
+import mergerobotics.memo.db.EventsTable;
 
 import static mergerobotics.memo.utilities.Utilities.toastPlusLog;
 
@@ -22,6 +23,9 @@ public class prematchActivity extends AppCompatActivity {
     // Definitions to read data from the user input
     // This data needs to be shared NB: scoutTeam not currently in GUI user input
     EditText scoutName, teamNum , matchNum;
+
+    // Keep a reference to the events table
+    EventsTable eventsTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,10 @@ public class prematchActivity extends AppCompatActivity {
         if (!scout.matches("") && !team.matches("") && !match.matches("")) {
             Intent sandstormIntent = new Intent(this, sandstormActivity.class);
 
-            // Create the events table
+            // Create the events table (could be done in prematch onCreate, can discuss)
+            toastPlusLog( this, "Creating events table");
+            eventsTable = new EventsTable(this);
+            eventsTable.getData();
 
             // echo these values before proceeding
             toastPlusLog( this, "Scout: " + scout + " Team: " + team + " Match: " + match);

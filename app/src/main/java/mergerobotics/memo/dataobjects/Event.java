@@ -40,11 +40,12 @@ public class Event implements Comparable<Event>, Serializable {
     public int scoutTeam;
     public double timestamp;
     public int teamNum;
-    public int competition;
+    public int match;
     public Phase phase;
     public Cycle eventType;
     public Pickup pickup;
     public Delivery delivery;
+    public String competition;
     public int success;
     public double startTime;
     public double endTime;
@@ -55,15 +56,16 @@ public class Event implements Comparable<Event>, Serializable {
      * This version of Event constructor requires minimal parameters, to be
      * used primarily for non-cycle event data
      */
-    public Event(Phase phase, Cycle eventType, int teamNum, int competition,
+    public Event(Phase phase, Cycle eventType, int teamNum, int match, String competition,
                  int success, double startTime, double endTime, String comments,
                  String scout, int scoutingTeam) {
         this.timestamp = SystemClock.currentThreadTimeMillis();
         this.phase = phase;
-        this.eventType = eventType; //Not determined yet
+        this.eventType = eventType;
         this.delivery = Delivery.NIL;
         this.pickup = Pickup.NIL;
         this.teamNum = teamNum;
+        this.match = match;
         this.competition = competition;
         this.success = 0;
         this.startTime = initTimestamp;
@@ -75,7 +77,7 @@ public class Event implements Comparable<Event>, Serializable {
     }
 
     public Event(double timestamp, Phase phase, Cycle cycle, Pickup pickup, Delivery deliveryOutcome,
-                 int teamNum, int competition,
+                 int teamNum, int match, String competition,
                  int success, double startTime, double endTime, String comments,
                  String scout, int scoutingTeam) {
         this.timestamp = timestamp;
@@ -84,6 +86,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.delivery = deliveryOutcome;
         this.pickup = pickup;
         this.teamNum = teamNum;
+        this.match = match;
         this.competition = competition;
         this.success = success;
         this.startTime = startTime;
