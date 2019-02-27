@@ -10,8 +10,9 @@ import android.view.View;
 import mergerobotics.memo.R;
 import mergerobotics.memo.dataobjects.Event;
 import mergerobotics.memo.db.EventsHelper;
-import mergerobotics.memo.db.EventsTable;
+import mergerobotics.memo.db.EventsDbAdapter;
 
+import static mergerobotics.memo.db.EventsDbAdapter.EVENT_REF;
 import static mergerobotics.memo.utilities.Utilities.toastPlusLog;
 
 public class sandstormActivity extends AppCompatActivity {
@@ -55,8 +56,13 @@ public class sandstormActivity extends AppCompatActivity {
 
     public void teleopPage(View view){
         Intent teleopIntent = new Intent(this, teleopActivity2019.class);
-        EventsTable eTable = new EventsTable(this);
-        EventsHelper eHelper = new EventsHelper(this);
+
+        // get the events table reference passed from the calling activity
+   //     EventsDbAdapter eTable = (EventsDbAdapter)teleopIntent.getSerializableExtra(EVENT_REF);
+
+        // get our own reference to the table, should already exist at this point
+        EventsDbAdapter eDB = new EventsDbAdapter(this);
+        eDB.open();
 
         // @TODO Need to pass the start level and control input from user, hardcode for now and store in comments
         String tempStartData = new String (scoutName + " team: " + Integer.toString(teamNum) +
@@ -72,7 +78,7 @@ public class sandstormActivity extends AppCompatActivity {
                 " Start lvl 1 Driver CrossHabline", scoutName, scoutTeam);
 
         // Insert the event
-        long id = eTable.insertData(startingEvent, "jpl");
+        long id = eDB.insertData(startingEvent);
         if(id<=0)
         {
             // Failed to update the database

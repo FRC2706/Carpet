@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import mergerobotics.memo.R;
-import mergerobotics.memo.db.EventsTable;
+import mergerobotics.memo.db.EventsDbAdapter;
 
+import static mergerobotics.memo.db.EventsDbAdapter.EVENT_REF;
 import static mergerobotics.memo.utilities.Utilities.toastPlusLog;
 
 public class prematchActivity extends AppCompatActivity {
@@ -25,11 +26,17 @@ public class prematchActivity extends AppCompatActivity {
     EditText scoutName, teamNum , matchNum;
 
     // Keep a reference to the events table
-    EventsTable eventsTable;
+    public EventsDbAdapter eventsTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Initial creation of the events db, not needed earlier at this time
+        eventsTable = new EventsDbAdapter(this);
+        eventsTable.open();
+        toastPlusLog( this, "DB opened"); // can delete this later
+
         setContentView(R.layout.activity_prematch);
     }
 
@@ -57,10 +64,6 @@ public class prematchActivity extends AppCompatActivity {
         if (!scout.matches("") && !team.matches("") && !match.matches("")) {
             Intent sandstormIntent = new Intent(this, sandstormActivity.class);
 
-            // Create the events table (could be done in prematch onCreate, can discuss)
-            toastPlusLog( this, "Creating events table");
-            eventsTable = new EventsTable(this);
-            eventsTable.getData();
 
             // echo these values before proceeding
             toastPlusLog( this, "Scout: " + scout + " Team: " + team + " Match: " + match);
@@ -70,6 +73,9 @@ public class prematchActivity extends AppCompatActivity {
             sandstormIntent.putExtra(SCOUT_TEAM, scoutTeam);
             sandstormIntent.putExtra(TEAM, iTeam);
             sandstormIntent.putExtra(MATCH, iMatch);
+
+            // Pass on the events table helper
+    //        sandstormIntent.putExtra(EVENT_REF, eventsTable);
 
             startActivity(sandstormIntent);
         }

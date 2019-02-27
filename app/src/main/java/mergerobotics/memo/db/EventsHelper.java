@@ -6,15 +6,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 import static mergerobotics.memo.db.EventsContract.DATABASE_NAME;
 import static mergerobotics.memo.db.EventsContract.DATABASE_VERSION;
 import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SCOUT_NAME;
-import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_UID;
+import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_TEAM;
 
-public class EventsHelper extends SQLiteOpenHelper {
+public class EventsHelper extends SQLiteOpenHelper implements Serializable {
 
     public static final String TABLE_NAME = "events";
-    private static final String EVENT_TAB = "CREATE TABLE TABLE_NAME ( " +
+    private static final String EVENT_TAB = "CREATE TABLE " +  TABLE_NAME + " ( " +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             " sync_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, " +
             " type VARCHAR(10) NOT NULL, " +
@@ -24,18 +26,14 @@ public class EventsHelper extends SQLiteOpenHelper {
             " success TINYINT NOT NULL, "+
             " start_time TINYINT  NOT NULL, "+
             " end_time TINYINT  NOT NULL, "+
-            " extra VARCHAR(64) NOT NULL, "+
+            " extra VARCHAR(32) NOT NULL, "+
             " scout_name VARCHAR(16) NOT NULL, "+
             " scout_team SMALLINT NOT NULL, "+
             " signature TEXT NOT NULL)";
 
-    private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+
-            " ("+COLUMN_NAME_UID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            COLUMN_NAME_SCOUT_NAME+" VARCHAR(255) ,"+
-            COLUMN_NAME_SCOUT_NAME+" VARCHAR(225));";
 
     private static final String DROP_TABLE ="DROP TABLE IF EXISTS "+TABLE_NAME;
-    private Context context;
+    private Context mContext;
 
     /**
      * Create a helper object to create, open, and/or manage a database.
@@ -53,13 +51,14 @@ public class EventsHelper extends SQLiteOpenHelper {
     public EventsHelper(Context context, String name,
                         SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
-        this.context = context;
+        this.mContext = context;
     }
 
     public EventsHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context=context;
+        this.mContext=context;
     }
+
     /**
      * Called when the database is created for the first time. This is where the
      * creation of tables and the initial population of the tables should happen.
@@ -72,12 +71,13 @@ public class EventsHelper extends SQLiteOpenHelper {
             Log.i(getClass().getName(), EVENT_TAB);
             db.execSQL(EVENT_TAB);
         } catch (Exception e) {
-            Toast myToast = Toast.makeText(context, ""+e,
+            Toast myToast = Toast.makeText(mContext, ""+e,
                     Toast.LENGTH_LONG);
             myToast.show();
         }
 
     }
+
 
     /**
      * Called when the database needs to be upgraded. The implementation
@@ -103,7 +103,7 @@ public class EventsHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         // not needed at this time
-        Toast myToast = Toast.makeText(context, "upgrade attempted :(",
+        Toast myToast = Toast.makeText(mContext, "upgrade attempted :(",
                 Toast.LENGTH_SHORT);
         myToast.show();
     }

@@ -1,5 +1,6 @@
 package mergerobotics.memo.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,24 +15,27 @@ public class HatchPickupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_hatchpickup);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
     }
 
     public void hatchPickupGround (View view) {
     /*
         Each button click will
         - provide a feedback view message
-        - write to the events database (pre-loaded, loading station, ground)
-        - dismiss the window to return to Teleop page
+        - pass on the button selection (pre-loaded, loading station, ground)
+        - launch the delivery cycle who will complete the cycle (unless user cancels)
+        - dismiss the window to return to calling page
         */
 
         Toast myToast = Toast.makeText(this, "Hatch pickup ground",
                 Toast.LENGTH_SHORT);
         myToast.show();
-        Log.i(getClass().getName(), "Hatch pickup ground"); // replace with db write
+        Log.i(getClass().getName(), "Hatch pickup ground");
 
-        // Return to Teleop page, do we want a slight delay ?
+        Intent intent = new Intent(this, DeliveryCycleActivity.class);
+        startActivity(intent);
+
+        // Return to calling page after the delivery cycle as been completed
         finish();
 
     }
@@ -40,16 +44,20 @@ public class HatchPickupActivity extends AppCompatActivity {
     /*
         Each button click will
         - provide a feedback view message
-        - write to the events database (pre-loaded, loading station, ground)
-        - dismiss the window to return to Teleop page
+        - pass on the button selection (pre-loaded, loading station, ground)
+        - launch the delivery cycle who will complete the cycle (unless user cancels)
+        - dismiss the window to return to calling page
         */
 
         Toast myToast = Toast.makeText(this, "Hatch pickup loading stn",
                 Toast.LENGTH_SHORT);
         myToast.show();
-        Log.i(getClass().getName(), "Hatch pickup loading stn"); // replace with db write
+        Log.i(getClass().getName(), "Hatch pickup loading stn");
 
-        // Return to Teleop page, do we want a slight delay ?
+        Intent intent = new Intent(this, DeliveryCycleActivity.class);
+        startActivity(intent);
+
+        // Return to calling page after the delivery cycle as been completed
         finish();
 
     }
@@ -58,26 +66,30 @@ public class HatchPickupActivity extends AppCompatActivity {
     /*
         Each button click will
         - provide a feedback view message
-        - write to the events database (pre-loaded, loading station, ground)
-        - dismiss the window to return to Teleop page
+        - pass on the button selection (pre-loaded, loading station, ground)
+        - launch the delivery cycle who will complete the cycle (unless user cancels)
+        - dismiss the window to return to calling page
         */
 
         Toast myToast = Toast.makeText(this, "Hatch pickup preloaded",
                 Toast.LENGTH_SHORT);
         myToast.show();
-        Log.i(getClass().getName(), "Hatch pickup preloaded"); // replace with db write
+        Log.i(getClass().getName(), "Hatch pickup preloaded");
 
-        // Return to Teleop page, do we want a slight delay ?
+        Intent intent = new Intent(this, DeliveryCycleActivity.class);
+        startActivity(intent);
+
+        // Return to calling page after the delivery cycle as been completed
         finish();
 
     }
-
 
     public void cancelled (View view) {
     /*
         This is a generic method to use when a scout clicks a cancel button in any of our
         nested activities, similar to back
         - provide a feedback view message
+        - NO DATA is saved in the database
         - dismiss the window to return to Teleop page
         */
 

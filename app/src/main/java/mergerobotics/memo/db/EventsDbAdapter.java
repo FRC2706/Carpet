@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.io.Serializable;
 
 import mergerobotics.memo.dataobjects.Event;
 
@@ -20,17 +23,26 @@ import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SUCCE
 import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SYNC_TIME;
 import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_TEAM;
 import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_TYPE;
-import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_UID;
+import static mergerobotics.memo.db.EventsContract.EventsEntry._ID; //inherited from BaseColumns
 import static mergerobotics.memo.db.EventsContract.EventsEntry.TABLE_NAME;
 
-public class EventsTable {
+public class EventsDbAdapter implements Serializable {
+    // The class is Serializable to allow for passing between activities via Intent
+
     private EventsHelper mEventsHelper;
-    public EventsTable(Context context)
+    private SQLiteDatabase mEventsDb;
+    private final Context mCtx; // this is the context associated with db
+    public static final String EVENT_REF = "event_ref";
+
+    public EventsDbAdapter(Context context)
     {
-        mEventsHelper = new EventsHelper(context);
+
+        // deferred until open method, mEventsHelper = new EventsHelper(context);
+        mCtx = context;
+        //Note that the database is created later on first read or write, via onCreate
     }
 
-    public long insertData(Event event, String signature)
+    public long insertData(Event event )
     {
         SQLiteDatabase dbEvents = mEventsHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -45,32 +57,33 @@ public class EventsTable {
         contentValues.put(COLUMN_NAME_EXTRA, event.extra);
         contentValues.put(COLUMN_NAME_SCOUT_NAME , event.scoutName);
         contentValues.put(COLUMN_NAME_SCOUT_TEAM, Integer.toString(event.scoutTeam));
-        contentValues.put(COLUMN_NAME_SIGNATURE, signature);
+        contentValues.put(COLUMN_NAME_SIGNATURE, event.signature);
         return dbEvents.insert(TABLE_NAME, null , contentValues);
     }
 
     public String getData()
     {
         SQLiteDatabase db = mEventsHelper.getWritableDatabase();
-        String[] columns = {COLUMN_NAME_UID,COLUMN_NAME_TYPE, COLUMN_NAME_TEAM, COLUMN_NAME_MATCH,
+        String[] columns = {_ID,COLUMN_NAME_TYPE, COLUMN_NAME_TEAM, COLUMN_NAME_MATCH,
                 COLUMN_NAME_COMPETITION,COLUMN_NAME_SUCCESS,COLUMN_NAME_START_TIME,COLUMN_NAME_END_TIME,
                 COLUMN_NAME_EXTRA,COLUMN_NAME_SCOUT_NAME, COLUMN_NAME_SCOUT_TEAM, COLUMN_NAME_SIGNATURE };
         Cursor cursor =db.query(TABLE_NAME, columns, "*",null,null,null,null,null);
         StringBuffer buffer= new StringBuffer();
         while (cursor.moveToNext())
         {
-            int cid= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_UID));
+            int cid= cursor.getInt(cursor.getColumnIndex(_ID));
             double timestamp= cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_SYNC_TIME));
             String eventType= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TYPE));
             int team= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TEAM));
             int match= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_MATCH));
-            int competition= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_COMPETITION));
+            String competition= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_COMPETITION));
             int success= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUCCESS));
             double startTime= cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_START_TIME));
             double endTime= cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_END_TIME));
             String extra= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_EXTRA));
             String scoutName= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SCOUT_NAME));
             String scoutTeam= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SCOUT_TEAM));
+            String signature= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SIGNATURE));
 
             // add rest of columns later
             buffer.append(cid+ " " +
@@ -78,13 +91,14 @@ public class EventsTable {
                     eventType + " " +
                     Integer.toString(team) + " " +
                     Integer.toString(match) + " " +
-                    Integer.toString(competition) + " " +
+                    competition + " " +
                     Integer.toString(success) + " " +
                     Double.toString(startTime) + " " +
                     Double.toString(endTime) + " " +
                     extra + " " +
                     scoutName + " " +
                     scoutTeam +
+                    signature +
                     " \n");
         }
 
@@ -97,8 +111,36 @@ public class EventsTable {
         String[] whereArgs ={uname};
 
         Log.i(getClass().getName(), uname + " delete not ready yet");
-        int count =db.delete(mEventsHelper.TABLE_NAME ,COLUMN_NAME_UID +" = ?",whereArgs);
+        int count =db.delete(mEventsHelper.TABLE_NAME ,EventsContract.EventsEntry._ID +" = ?",whereArgs);
         return  count;
+    }
+
+
+    /**
+     * This method will open the database and creates it if necessary (handled
+     * by getWritableDatabase method)
+     *
+     * <p>
+     * @return EventsDbAdapter instance is returned to provide access to the data
+     * </p><p>
+     * An exception is thrown if there are any issues
+     * </p>
+
+     */
+    public EventsDbAdapter open() throws android.database.SQLException{
+
+        mEventsHelper = new EventsHelper(mCtx);
+        mEventsDb = mEventsHelper.getWritableDatabase();
+        return this;
+    }
+
+    /**
+     * This method will close the database
+     * <p>
+     */
+    public void close() {
+
+        mEventsHelper.close();
     }
 
     public void updateName(String oldName , String newName)

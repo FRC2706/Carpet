@@ -11,7 +11,7 @@ public final class EventsContract implements BaseColumns {
         *
         * "CREATE TABLE events (
         * sync_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-        * type VARCHAR(5) NOT NULL, *** 10
+        * type VARCHAR(5) NOT NULL, ***
         * team_number SMALLINT UNSIGNED NOT NULL, ***
         * match_number TINYINT UNSIGNED NOT NULL,  ***
         * competition VARCHAR(16) NOT NULL,
@@ -28,7 +28,7 @@ public final class EventsContract implements BaseColumns {
             public static final String COLUMN_NAME_SYNC_TIME = "sync_time";
             public static final String COLUMN_NAME_TYPE = "type";
             public static final String COLUMN_NAME_TEAM = "team";
-            public static final String COLUMN_NAME_MATCH = "match";
+            public static final String COLUMN_NAME_MATCH = "match_number";
             public static final String COLUMN_NAME_COMPETITION = "competition";
             public static final String COLUMN_NAME_SUCCESS = "success";
             public static final String COLUMN_NAME_START_TIME = "start_time";

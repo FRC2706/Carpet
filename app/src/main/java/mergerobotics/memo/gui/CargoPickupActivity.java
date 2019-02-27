@@ -1,5 +1,6 @@
 package mergerobotics.memo.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,8 +23,9 @@ public class CargoPickupActivity extends AppCompatActivity {
     /*
         Each button click will
         - provide a feedback view message
-        - write to the events database (pre-loaded, loading station, ground)
-        - dismiss the window to return to Teleop page
+        - pass on the button selection (pre-loaded, loading station, ground, depot)
+        - launch the delivery cycle who will complete the cycle (unless user cancels)
+        - dismiss the window to return to calling page
         */
 
         Toast myToast = Toast.makeText(this, "Cargo pickup ground",
@@ -31,7 +33,11 @@ public class CargoPickupActivity extends AppCompatActivity {
         myToast.show();
         Log.i(getClass().getName(), "Cargo pickup ground"); // replace with db write
 
-        // Return to Teleop page, do we want a slight delay ?
+
+        Intent intent = new Intent(this, DeliveryCycleActivity.class);
+        startActivity(intent);
+
+        // Return to calling page after the delivery cycle as been completed
         finish();
 
     }
@@ -40,8 +46,9 @@ public class CargoPickupActivity extends AppCompatActivity {
     /*
         Each button click will
         - provide a feedback view message
-        - write to the events database (pre-loaded, loading station, ground)
-        - dismiss the window to return to Teleop page
+        - pass on the button selection (pre-loaded, loading station, ground, depot)
+        - launch the delivery cycle who will complete the cycle (unless user cancels)
+        - dismiss the window to return to calling page
         */
 
         Toast myToast = Toast.makeText(this, "Cargo pickup loading stn",
@@ -49,7 +56,10 @@ public class CargoPickupActivity extends AppCompatActivity {
         myToast.show();
         Log.i(getClass().getName(), "Cargo pickup loading stn"); // replace with db write
 
-        // Return to Teleop page, do we want a slight delay ?
+        Intent intent = new Intent(this, DeliveryCycleActivity.class);
+        startActivity(intent);
+
+        // Return to calling page after the delivery cycle as been completed
         finish();
 
     }
@@ -58,8 +68,9 @@ public class CargoPickupActivity extends AppCompatActivity {
     /*
         Each button click will
         - provide a feedback view message
-        - write to the events database (pre-loaded, loading station, ground)
-        - dismiss the window to return to Teleop page
+        - pass on the button selection (pre-loaded, loading station, ground, depot)
+        - launch the delivery cycle who will complete the cycle (unless user cancels)
+        - dismiss the window to return to calling page
         */
 
         Toast myToast = Toast.makeText(this, "Cargo pickup preloaded",
@@ -67,7 +78,10 @@ public class CargoPickupActivity extends AppCompatActivity {
         myToast.show();
         Log.i(getClass().getName(), "Cargo pickup preloaded"); // replace with db write
 
-        // Return to Teleop page, do we want a slight delay ?
+        Intent intent = new Intent(this, DeliveryCycleActivity.class);
+        startActivity(intent);
+
+        // Return to calling page after the delivery cycle as been completed
         finish();
 
     }
@@ -76,16 +90,20 @@ public class CargoPickupActivity extends AppCompatActivity {
     /*
         Each button click will
         - provide a feedback view message
-        - write to the events database (pre-loaded, loading station, ground)
-        - dismiss the window to return to Teleop page
+        - pass on the button selection (pre-loaded, loading station, ground, depot)
+        - launch the delivery cycle who will complete the cycle (unless user cancels)
+        - dismiss the window to return to calling page
         */
 
         Toast myToast = Toast.makeText(this, "Cargo pickup depot",
                 Toast.LENGTH_SHORT);
         myToast.show();
-        Log.i(getClass().getName(), "Cargo pickup depot"); // replace with db write
+        Log.i(getClass().getName(), "Cargo pickup depot");
 
-        // Return to Teleop page, do we want a slight delay ?
+        Intent intent = new Intent(this, DeliveryCycleActivity.class);
+        startActivity(intent);
+
+        // Return to calling page after the delivery cycle as been completed
         finish();
 
     }
@@ -95,6 +113,7 @@ public class CargoPickupActivity extends AppCompatActivity {
         This is a generic method to use when a scout clicks a cancel button in any of our
         nested activities, similar to back
         - provide a feedback view message
+        - NO DATA is saved to the database
         - dismiss the window to return to Teleop page
         */
 
