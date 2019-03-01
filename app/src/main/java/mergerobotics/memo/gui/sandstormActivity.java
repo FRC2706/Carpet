@@ -9,7 +9,6 @@ import android.view.View;
 
 import mergerobotics.memo.R;
 import mergerobotics.memo.dataobjects.Event;
-import mergerobotics.memo.db.EventsHelper;
 import mergerobotics.memo.db.EventsDbAdapter;
 
 import static mergerobotics.memo.db.EventsDbAdapter.EVENT_REF;
@@ -73,7 +72,7 @@ public class sandstormActivity extends AppCompatActivity {
         // echo values before proceeding
         toastPlusLog( this, tempStartData);
 
-        Event startingEvent = new Event(Event.Phase.SAND, Event.Cycle.START, teamNum, matchNum, "FIRST",
+        Event startingEvent = new Event(Event.Phase.SAND, Event.Cycle.START, teamNum, matchNum,
                 1, startTime, SystemClock.currentThreadTimeMillis(),
                 " Start lvl 1 Driver CrossHabline", scoutName, scoutTeam);
 
@@ -89,8 +88,8 @@ public class sandstormActivity extends AppCompatActivity {
             toastPlusLog( this, tempStartData + " Saved");
         }
 
-        // Pass on the user input to next activity TODO
-
+        // Pass on the event instance to the teleop activity
+        teleopIntent.putExtra(EVENT_REF, startingEvent);
         startActivity(teleopIntent);
     }
 

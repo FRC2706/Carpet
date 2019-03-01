@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.io.Serializable;
 
 import mergerobotics.memo.dataobjects.Event;
 
@@ -23,11 +20,10 @@ import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SUCCE
 import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_SYNC_TIME;
 import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_TEAM;
 import static mergerobotics.memo.db.EventsContract.EventsEntry.COLUMN_NAME_TYPE;
-import static mergerobotics.memo.db.EventsContract.EventsEntry._ID; //inherited from BaseColumns
 import static mergerobotics.memo.db.EventsContract.EventsEntry.TABLE_NAME;
+import static mergerobotics.memo.db.EventsContract.EventsEntry._ID;
 
-public class EventsDbAdapter implements Serializable {
-    // The class is Serializable to allow for passing between activities via Intent
+public class EventsDbAdapter {
 
     private EventsHelper mEventsHelper;
     private SQLiteDatabase mEventsDb;
@@ -40,11 +36,14 @@ public class EventsDbAdapter implements Serializable {
         // deferred until open method, mEventsHelper = new EventsHelper(context);
         mCtx = context;
         //Note that the database is created later on first read or write, via onCreate
+        // Also note that the onCreate will NOT be called if the database already exists
+        // on the system. To force a recreate, uninstall the app from the phone manually
     }
 
     public long insertData(Event event )
     {
         SQLiteDatabase dbEvents = mEventsHelper.getWritableDatabase();
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_NAME_SYNC_TIME, event.startTime);
         contentValues.put(COLUMN_NAME_TYPE, event.eventType.name());

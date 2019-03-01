@@ -9,7 +9,6 @@ import android.widget.EditText;
 import mergerobotics.memo.R;
 import mergerobotics.memo.db.EventsDbAdapter;
 
-import static mergerobotics.memo.db.EventsDbAdapter.EVENT_REF;
 import static mergerobotics.memo.utilities.Utilities.toastPlusLog;
 
 public class prematchActivity extends AppCompatActivity {
@@ -62,22 +61,18 @@ public class prematchActivity extends AppCompatActivity {
         int scoutTeam = 2706;
 
         if (!scout.matches("") && !team.matches("") && !match.matches("")) {
-            Intent sandstormIntent = new Intent(this, sandstormActivity.class);
-
+            Intent nextIntent = new Intent(this, sandstormActivity.class);
 
             // echo these values before proceeding
             toastPlusLog( this, "Scout: " + scout + " Team: " + team + " Match: " + match);
 
             // Pass on the prematch user input to Sandstorm
-            sandstormIntent.putExtra(SCOUT_NAME, scout);
-            sandstormIntent.putExtra(SCOUT_TEAM, scoutTeam);
-            sandstormIntent.putExtra(TEAM, iTeam);
-            sandstormIntent.putExtra(MATCH, iMatch);
+            nextIntent.putExtra(SCOUT_NAME, scout);
+            nextIntent.putExtra(SCOUT_TEAM, scoutTeam);
+            nextIntent.putExtra(TEAM, iTeam);
+            nextIntent.putExtra(MATCH, iMatch);
 
-            // Pass on the events table helper
-    //        sandstormIntent.putExtra(EVENT_REF, eventsTable);
-
-            startActivity(sandstormIntent);
+            startActivity(nextIntent);
         }
 
     }

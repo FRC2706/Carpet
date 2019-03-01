@@ -3,6 +3,7 @@ package mergerobotics.memo.dataobjects;
 import android.os.SystemClock;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * This is an abstract class to represent any timestamped event during an FRC match.
@@ -57,9 +58,12 @@ public class Event implements Comparable<Event>, Serializable {
      * This version of Event constructor requires minimal parameters, to be
      * used primarily for non-cycle event data
      */
-    public Event(Phase phase, Cycle eventType, int teamNum, int match, String competition,
+    public Event(Phase phase, Cycle eventType, int teamNum, int match,
                  int success, double startTime, double endTime, String comments,
                  String scout, int scoutingTeam) {
+
+        Date date = new Date();
+
         this.timestamp = SystemClock.currentThreadTimeMillis();
         this.phase = phase;
         this.eventType = eventType;
@@ -67,10 +71,10 @@ public class Event implements Comparable<Event>, Serializable {
         this.pickup = Pickup.NIL;
         this.teamNum = teamNum;
         this.match = match;
-        this.competition = competition;
-        this.success = 0;
-        this.startTime = initTimestamp;
-        this.endTime = initTimestamp;
+        this.competition = date.toString();
+        this.success = success;
+        this.startTime = this.timestamp;
+        this.endTime = 0;
         this.extra = comments;
         this.scoutName = scout;
         this.scoutTeam = scoutingTeam;
@@ -79,9 +83,12 @@ public class Event implements Comparable<Event>, Serializable {
     }
 
     public Event(double timestamp, Phase phase, Cycle cycle, Pickup pickup, Delivery deliveryOutcome,
-                 int teamNum, int match, String competition,
+                 int teamNum, int match,
                  int success, double startTime, double endTime, String comments,
                  String scout, int scoutingTeam) {
+
+        Date date = new Date();
+
         this.timestamp = timestamp;
         this.phase = phase;
         this.eventType = cycle;
@@ -89,8 +96,34 @@ public class Event implements Comparable<Event>, Serializable {
         this.pickup = pickup;
         this.teamNum = teamNum;
         this.match = match;
-        this.competition = competition;
+        this.competition = date.toString(); // default to the date, could add to GUI
         this.success = success;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.extra = comments;
+        this.scoutName = scout;
+        this.scoutTeam = scoutingTeam;
+        this.signature = "jpl"; //hardcoded text for now
+
+    }
+
+    public Event(double timestamp,
+                 Phase phase, Cycle cycle, Pickup pickup, Delivery deliveryOutcome,
+                 int teamNum, int match,
+                 double startTime, double endTime, String comments,
+                 String scout, int scoutingTeam) {
+
+        Date date = new Date();
+
+        this.timestamp = timestamp;
+        this.phase = phase;
+        this.eventType = cycle;
+        this.delivery = deliveryOutcome;
+        this.pickup = pickup;
+        this.teamNum = teamNum;
+        this.match = match;
+        this.competition = date.toString(); // default to the date, could add to GUI
+        this.success = 1; // not sure we need this, default to successful
         this.startTime = startTime;
         this.endTime = endTime;
         this.extra = comments;
