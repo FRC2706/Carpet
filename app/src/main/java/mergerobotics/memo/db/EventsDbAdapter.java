@@ -46,7 +46,7 @@ public class EventsDbAdapter {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_NAME_SYNC_TIME, event.startTime);
-        contentValues.put(COLUMN_NAME_TYPE, event.eventType.name());
+        contentValues.put(COLUMN_NAME_TYPE, event.eventType);
         contentValues.put(COLUMN_NAME_TEAM, Integer.toString(event.teamNum));
         contentValues.put(COLUMN_NAME_MATCH, event.match);
         contentValues.put(COLUMN_NAME_COMPETITION, event.competition);
@@ -66,7 +66,8 @@ public class EventsDbAdapter {
         String[] columns = {_ID,COLUMN_NAME_TYPE, COLUMN_NAME_TEAM, COLUMN_NAME_MATCH,
                 COLUMN_NAME_COMPETITION,COLUMN_NAME_SUCCESS,COLUMN_NAME_START_TIME,COLUMN_NAME_END_TIME,
                 COLUMN_NAME_EXTRA,COLUMN_NAME_SCOUT_NAME, COLUMN_NAME_SCOUT_TEAM, COLUMN_NAME_SIGNATURE };
-        Cursor cursor =db.query(TABLE_NAME, columns, "*",null,null,null,null,null);
+        Cursor cursor =db.query(TABLE_NAME, columns, "*",null,null,
+                null,null,null);
         StringBuffer buffer= new StringBuffer();
         while (cursor.moveToNext())
         {
@@ -110,8 +111,8 @@ public class EventsDbAdapter {
         String[] whereArgs ={uname};
 
         Log.i(getClass().getName(), uname + " delete not ready yet");
-        int count =db.delete(mEventsHelper.TABLE_NAME ,EventsContract.EventsEntry._ID +" = ?",whereArgs);
-        return  count;
+        return db.delete(TABLE_NAME ,
+                EventsContract.EventsEntry._ID +" = ?",whereArgs);
     }
 
 
@@ -142,7 +143,7 @@ public class EventsDbAdapter {
         mEventsHelper.close();
     }
 
-    public void updateName(String oldName , String newName)
+    public void updateEvent(String oldName , String newName)
     {
         /// ***** NOT IMPLEMENTED for our app
 //        SQLiteDatabase db = mEventsHelper.getWritableDatabase();
@@ -151,7 +152,7 @@ public class EventsDbAdapter {
 //        String[] whereArgs= {oldName};
 //        int count =db.update(mEventsHelper.TABLE_NAME,contentValues, mEventsHelper.NAME+" = ?",whereArgs );
 //        return count;
-        Log.i(getClass().getName(), "updateName not implemented");
+        Log.i(getClass().getName(), "updateEvent not implemented");
 
     }
 

@@ -26,20 +26,20 @@ public class CargoPickupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_cargopickup);
+        setContentView(R.layout.activity_cargopickup);
 
         // Extract the data passed from previous activity via the intent extras
         Intent thisIntent = getIntent(); // retrieve intent once
         currentEvent = (Event) thisIntent.getSerializableExtra(EVENT_REF);
     }
 
-    public void cargoPickupGround (View view) {
+    public void cargoPickupHandler(View view) {
     /*
         Each pickup button click will
         - determine the pickup location from the button text, save it in the event
         - provide a feedback message using Toast
 
-        Upon delivery button click
+        Upon delivery button selection
         - update the end time, calculate a cycle time for echo (do we want that in db?)
         - update the database with the pickup event
         - pass on the event data to the delivery activity
@@ -57,10 +57,9 @@ public class CargoPickupActivity extends AppCompatActivity {
         Button b = (Button)view;
         String buttonText = b.getText().toString();
         Utilities.toastPlusLog(this,
-                currentEvent.eventType.toString() + " pickup " + buttonText);
+                currentEvent.eventType + " pickup " + buttonText);
 
-        currentEvent.extra = currentEvent.extra + buttonText; //for now
-        currentEvent.pickup = Event.Pickup.GROUND;
+        currentEvent.location = buttonText;
         currentEvent.endTime = SystemClock.currentThreadTimeMillis();
 
         // Store the pickup event in the database
@@ -89,6 +88,7 @@ public class CargoPickupActivity extends AppCompatActivity {
 
     }
 
+    //***** The following methods are OBSOLETE, leaving for now, should use pickupHandler
     public void cargoPickupLoadingStation (View view) {
     /*
         Each button click will

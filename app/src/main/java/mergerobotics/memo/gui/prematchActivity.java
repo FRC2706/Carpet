@@ -14,7 +14,6 @@ import static mergerobotics.memo.utilities.Utilities.toastPlusLog;
 public class prematchActivity extends AppCompatActivity {
 
     // definitions for data sharing btw activities (via putExtra)
-    // should have a common class for these type of declarations
     private static final String SCOUT_NAME = "scout";
     private static final String SCOUT_TEAM = "scoutTeam";
     private static final String TEAM = "team";

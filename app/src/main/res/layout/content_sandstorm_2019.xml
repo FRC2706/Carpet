@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
     tools:showIn="@layout/activity_sandstorm"
     tools:context="mergerobotics.memo.gui.sandstormActivity">
 
@@ -26,7 +26,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/roundedbutton"
-            android:text="Start Level"
+            android:text="@string/start_level"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/habline"
@@ -45,7 +45,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Cross Habline"
+            android:text="@string/cross_habline"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="104dp"
             android:gravity="center"
-            android:text="Control"
+            android:text="@string/control"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +103,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Drivers"
+            android:text="@string/drivers"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -123,7 +123,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="Cycles"
+            android:text="@string/cycles"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +144,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/roundedbutton"
             android:onClick="hatchPickupPage"
-            android:text="Hatch Pickup"
+            android:text="@string/hatch_pickup"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -162,58 +162,30 @@
             android:layout_marginTop="26dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/roundedbutton"
             android:onClick="cargoPickupPage"
-            android:text="Cargo Pickup"
+            android:text="@string/cargo_pickup"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/autoDelivered"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toEndOf="@+id/autoHatchPickup"
-            app:layout_constraintTop_toBottomOf="@+id/title2"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/autoDelivered"
-            android:layout_width="173dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="68dp"
-            android:background="@drawable/roundedbutton"
-            android:onClick="deliveryCyclePage"
-            android:text="Delivered to..."
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.536"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/autoHatchPickup"
-            app:layout_constraintVertical_bias="0.218" />
+            app:layout_constraintTop_toBottomOf="@+id/title2" />
 
         <TextView
             android:id="@+id/time"
             android:layout_width="96dp"
             android:layout_height="46dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginLeft="64dp"
+            android:layout_marginTop="56dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="Time"
+            android:text="@string/time"
             android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.28"
+            app:layout_constraintBottom_toTopOf="@+id/comments"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/autoDelivered"
-            app:layout_constraintVertical_bias="0.174" />
+            app:layout_constraintTop_toBottomOf="@+id/autoHatchPickup"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/toTeleop"
@@ -224,17 +196,17 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="76dp"
             android:background="@drawable/roundedbutton"
             android:onClick="teleopPage"
-            android:text="teleop"
+            android:text="@string/teleop"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.43"
+            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toEndOf="@+id/time"
-            app:layout_constraintTop_toBottomOf="@+id/autoDelivered"
-            app:layout_constraintVertical_bias="0.181" />
+            app:layout_constraintTop_toBottomOf="@+id/autoCargoPickup"
+            app:layout_constraintVertical_bias="0.22" />
 
 
         <LinearLayout
@@ -267,10 +239,11 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:focusableInTouchMode="true"
-                android:hint="Team"
+                android:hint="@string/team"
                 android:inputType="number"
-                android:nextFocusLeft="@id/comment"
-                android:nextFocusUp="@id/comment" />
+                android:nextFocusLeft="@id/hatch_button"                 android:nextFocusUp="@id/comment" />
+                android:nextFocusUp="@id/hatch_button"
+                android:nextFocusRight="@id/comment" />
 
             <EditText
                 android:id="@+id/comment"
@@ -278,10 +251,10 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:focusableInTouchMode="true"
-                android:hint="Comment"
+                android:hint="@string/comment"
                 android:inputType="text"
-                android:nextFocusLeft="@id/comment"
-                android:nextFocusUp="@id/comment" />
+                android:nextFocusLeft="@id/teamNumber"
+                android:nextFocusUp="@id/hatch_button" />
 
             <Button
                 android:id="@+id/goButton"
@@ -289,7 +262,9 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/roundedbutton"
-                android:text="Go"
+                android:onClick="goHandler"
+                android:text="@string/go"
+                android:nextFocusUp="@+id/hatch_button"
                 android:textColor="@color/white" />
 
         </LinearLayout>

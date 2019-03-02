@@ -20,16 +20,16 @@ public class Event implements Comparable<Event>, Serializable {
     public enum Cycle {
         NIL, START, DRIVER, CARGO, HATCH, CLIMB, DEADNESS, OTHER
     }
-
-    // Used for pickup location, to be mapped to pickup in the events table
-    public enum Pickup {
-        NIL, PRELOADED, LOADINGSTN, DEPOT, GROUND,
-    }
-
-    // Used for delivery outcome, to be mapped to delivery in the events table
-    public enum Delivery {
-        NIL, CARGOSHIP, ROCKETLVL1, ROCKETLVL2, ROCKETLVL3, DROPPED
-    }
+// **** Not needed, using button labels
+//    // Used for pickup location, to be mapped to pickup in the events table
+//    public enum Pickup {
+//        NIL, PRELOADED, LOADINGSTN, DEPOT, GROUND,
+//    }
+//
+//    // Used for delivery outcome, to be mapped to delivery in the events table
+//    public enum Delivery {
+//        NIL, CARGOSHIP, ROCKETLVL1, ROCKETLVL2, ROCKETLVL3, DROPPED
+//    }
 
     public double initTimestamp = 0;
 
@@ -43,9 +43,8 @@ public class Event implements Comparable<Event>, Serializable {
     public int teamNum;
     public int match;
     public Phase phase;
-    public Cycle eventType;
-    public Pickup pickup;
-    public Delivery delivery;
+    public String eventType;
+    public String location;
     public String competition;
     public int success;
     public double startTime;
@@ -58,31 +57,29 @@ public class Event implements Comparable<Event>, Serializable {
      * This version of Event constructor requires minimal parameters, to be
      * used primarily for non-cycle event data
      */
-    public Event(Phase phase, Cycle eventType, int teamNum, int match,
-                 int success, double startTime, double endTime, String comments,
-                 String scout, int scoutingTeam) {
+    public Event(Phase phase, String eventType, int teamNum, int match,
+                 String comments, String scout, int scoutingTeam) {
 
         Date date = new Date();
 
         this.timestamp = SystemClock.currentThreadTimeMillis();
         this.phase = phase;
         this.eventType = eventType;
-        this.delivery = Delivery.NIL;
-        this.pickup = Pickup.NIL;
+        this.location = "NIL";
         this.teamNum = teamNum;
         this.match = match;
         this.competition = date.toString();
-        this.success = success;
+        this.success = 1;
         this.startTime = this.timestamp;
         this.endTime = 0;
         this.extra = comments;
         this.scoutName = scout;
         this.scoutTeam = scoutingTeam;
-        this.signature = "jpl"; //hardcoded text for now
+        this.signature = "TODO"; //hardcoded text for now
 
     }
 
-    public Event(double timestamp, Phase phase, Cycle cycle, Pickup pickup, Delivery deliveryOutcome,
+    public Event(double timestamp, Phase phase, String cycle, String location,
                  int teamNum, int match,
                  int success, double startTime, double endTime, String comments,
                  String scout, int scoutingTeam) {
@@ -92,8 +89,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.timestamp = timestamp;
         this.phase = phase;
         this.eventType = cycle;
-        this.delivery = deliveryOutcome;
-        this.pickup = pickup;
+        this.location = location;
         this.teamNum = teamNum;
         this.match = match;
         this.competition = date.toString(); // default to the date, could add to GUI
@@ -108,7 +104,7 @@ public class Event implements Comparable<Event>, Serializable {
     }
 
     public Event(double timestamp,
-                 Phase phase, Cycle cycle, Pickup pickup, Delivery deliveryOutcome,
+                 Phase phase, String cycle, String location,
                  int teamNum, int match,
                  double startTime, double endTime, String comments,
                  String scout, int scoutingTeam) {
@@ -118,8 +114,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.timestamp = timestamp;
         this.phase = phase;
         this.eventType = cycle;
-        this.delivery = deliveryOutcome;
-        this.pickup = pickup;
+        this.location = location;
         this.teamNum = teamNum;
         this.match = match;
         this.competition = date.toString(); // default to the date, could add to GUI

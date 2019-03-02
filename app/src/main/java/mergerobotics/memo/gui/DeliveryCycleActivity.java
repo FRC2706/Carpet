@@ -27,15 +27,17 @@ public class DeliveryCycleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_teleopdelivery);
+        setContentView(R.layout.activity_teleopdelivery);
 
         // Extract the data passed from previous activity via the intent extras
         thisIntent = getIntent(); // retrieve intent once
         currentEvent = (Event) thisIntent.getSerializableExtra(EVENT_REF);
     }
 
-    public void deliverCargoToShip (View view) {
+    public void deliveryHandler(View view) {
     /*
+        This is a generic handler for processing delivery outcomes.
+
         Each button click will
         - provide a feedback view message
         - reset end time in the event data upon delivery outcome button selection
@@ -43,6 +45,7 @@ public class DeliveryCycleActivity extends AppCompatActivity {
         - write to the events database (unless cancelled)
         - dismiss the window to return to previous page
         */
+
         // Get a reference to the database and open it
         eDB = new EventsDbAdapter(this);
         eDB.open();
@@ -51,10 +54,10 @@ public class DeliveryCycleActivity extends AppCompatActivity {
         Button b = (Button)view;
         String buttonText = b.getText().toString();
         Utilities.toastPlusLog(this,
-                currentEvent.eventType.toString() + " delivery location " + buttonText);
+                currentEvent.eventType + " delivery location " + buttonText);
 
         currentEvent.extra = currentEvent.extra + " " + buttonText; //for now
-        currentEvent.delivery = Event.Delivery.CARGOSHIP;
+        currentEvent.location = buttonText;
         currentEvent.endTime = SystemClock.currentThreadTimeMillis();
 
         // Store the pickup event in the database
@@ -76,6 +79,8 @@ public class DeliveryCycleActivity extends AppCompatActivity {
         finish();
     }
 
+
+    // The following methods are no longer needed (should use delivery handler), will remove later
     public void deliverCargoToRocketLvl1 (View view) {
     /*
         Each button click will
@@ -121,7 +126,7 @@ public class DeliveryCycleActivity extends AppCompatActivity {
         myToast.show();
         Log.i(getClass().getName(), "Delivery to Rocket Ship lvl 3");
 
-        // Return to previous page, do we want a slight delay ?
+        // Return to previous page
         finish();
     }
 

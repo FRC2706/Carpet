@@ -48,27 +48,30 @@ public class teleopActivity2019 extends AppCompatActivity {
         // Update event with game piece input
         int vId=  view.getId();
         int cButton = R.id.cargo_button;
-            currentEvent.eventType = Event.Cycle.CARGO;
+            currentEvent.eventType = buttonText;
             currentEvent.startTime = SystemClock.currentThreadTimeMillis();
 
         // Pass on the event instance to the next activity
         intent.putExtra(EVENT_REF, currentEvent);
         startActivity(intent);
     }
+
     public void hatchPickupPage(View view){
         Intent intent = new Intent(this, HatchPickupActivity.class);
 
+        // @TODO Determine the game piece type from button label to make more generic
+        Button b = (Button)view;
+        String buttonText = b.getText().toString();
+
+        // Update event with game piece input
+        int vId=  view.getId();
+        int cButton = R.id.cargo_button;
+        currentEvent.eventType = buttonText;
+        currentEvent.startTime = SystemClock.currentThreadTimeMillis();
+
         // Pass on the event instance to the next activity
         intent.putExtra(EVENT_REF, currentEvent);
-        startActivity(intent);        startActivity(intent);
-    }
-
-    public void deliveryCyclePage(View view){
-        Intent intent = new Intent(this, DeliveryCycleActivity.class);
-
-        // Pass on the event instance to the next activity
-        intent.putExtra(EVENT_REF, currentEvent);
-        startActivity(intent);        startActivity(intent);
+        startActivity(intent);
     }
 
 }
