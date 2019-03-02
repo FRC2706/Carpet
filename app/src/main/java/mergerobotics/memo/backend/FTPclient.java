@@ -394,15 +394,4 @@ public class FTPclient {
             }
         }
     }
-    void deleteRecursive(File fileOrDirectory) {
-        if (fileOrDirectory.isDirectory())
-            for (File child : fileOrDirectory.listFiles()){
-                Log.d("FTPClient|NUKE", "Nuking folder: " + child.getAbsolutePath());
-                deleteRecursive(child);
-            }
-
-
-
-        fileOrDirectory.delete();
-    }
 }
