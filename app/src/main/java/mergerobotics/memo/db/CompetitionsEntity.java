@@ -1,9 +1,8 @@
-package mergerobotics.memo.backend.Room;
+package mergerobotics.memo.db;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
-import android.arch.persistence.room.Database;
 
 
 @Entity(tableName = "competitions")

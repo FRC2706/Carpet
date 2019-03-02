@@ -16,7 +16,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundedbutton"
-        android:text="To endgame"
+        android:text="@string/to_endgame"
         android:onClick="endgamePage"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
@@ -51,7 +51,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Pickup options:"
+        android:text="@string/pickup_options"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundedbutton"
-        android:text="Cargo"
+        android:text="@string/cargo"
+        android:onClick="cargoPickupPage"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,7 +92,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundedbutton"
-        android:text="Hatch"
+        android:text="@string/hatch"
+        android:onClick="hatchPickupPage"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,27 +102,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pickup_label_textview"
         app:layout_constraintVertical_bias="0.045" />
-
-    <Button
-        android:id="@+id/delivery_button"
-        android:layout_width="126dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/roundedbutton"
-        android:text="Delivery"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hatch_button"
-        app:layout_constraintVertical_bias="0.038" />
 
     <TextView
         android:id="@+id/timer_textView"
@@ -131,15 +112,15 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="220dp"
         android:text="2:15"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delivery_button"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintTop_toBottomOf="@+id/hatch_button"
+        app:layout_constraintVertical_bias="0.309" />
 
     <LinearLayout
 
@@ -171,7 +152,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:focusableInTouchMode="true"
-            android:hint="Team"
+            android:hint="@string/team"
             android:inputType="number"
             android:nextFocusLeft="@id/comment"
             android:nextFocusUp="@id/comment" />
@@ -182,7 +163,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:focusableInTouchMode="true"
-            android:hint="Comment"
+            android:hint="@string/comment"
             android:inputType="text"
             android:nextFocusLeft="@id/comment"
             android:nextFocusUp="@id/comment" />
@@ -193,7 +174,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:background="@drawable/roundedbutton"
-            android:text="Go"
+            android:text="@string/go"
             android:textColor="@color/white" />
 
     </LinearLayout>

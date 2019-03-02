@@ -6,16 +6,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 
 import mergerobotics.memo.R;
-import mergerobotics.memo.gui.prematchActivity;
-import mergerobotics.memo.gui.test;
+import mergerobotics.memo.dataobjects.Event;
 
 public class MainActivity extends AppCompatActivity {
+
+    // globalIntent and me are used to make it easier
+    // to reference MainActivity and share relevant data
+    // Ref: from powerup
+    Intent globalIntent;
+    public static MainActivity me;
+
+    public static Event eventData; // tbd, not used yet
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
     public void changePage(View view){
         Intent name = new Intent(this, prematchActivity.class);
         startActivity(name);
@@ -50,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeTestPage(View view){
         Intent name = new Intent(this, test.class);
+        startActivity(name);
+    }
+
+    public void changeteaminfoPage(View view){
+        Intent name = new Intent(this, teamInfo.class);
         startActivity(name);
     }
 
