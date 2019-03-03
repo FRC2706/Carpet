@@ -2,12 +2,14 @@ package mergerobotics.memo.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import mergerobotics.memo.R;
 import mergerobotics.memo.dataobjects.Event;
@@ -27,6 +29,12 @@ public class sandstormActivity extends AppCompatActivity {
     // NB: scoutTeam not currently in GUI user input
     private String scoutName;
     private int teamNum, matchNum, scoutTeam;
+
+    //timer variables
+    private Handler m_handler;
+    private Runnable m_handlerTask;
+    private volatile boolean stopTimer;
+    private int remainTime = 15;
 
     EditText commentText, commentTeamText;
     private String comments, commentTeam;
@@ -52,6 +60,34 @@ public class sandstormActivity extends AppCompatActivity {
                 teamNum, matchNum,
                 " ", scoutName, scoutTeam);
 
+
+        final TextView tvGameTime = (TextView) findViewById(R.id.autoTimer);
+        m_handler = new Handler();
+        m_handlerTask = new Runnable() {
+            @Override
+            public void run() {
+
+                if (remainTime == 0) {
+                    tvGameTime.setText("Time Up");
+                } else {
+                    remainTime--;
+                    int minuets = remainTime / 60;
+                    int remainSec = remainTime - minuets * 60;
+                    String remainSecString;
+                    if (remainSec < 10)
+                        remainSecString = "0" + remainSec;
+                    else
+                        remainSecString = remainSec + "";
+// woo
+                    tvGameTime.setText(minuets + ":" + remainSecString);
+
+                    // set an alarm to run this again in 1 second
+                    if (!stopTimer)
+                        m_handler.postDelayed(m_handlerTask, 1000);  // 1 second delay
+                }
+            }
+        };
+        m_handlerTask.run();
     }
 
     public void teleopPage(View view){
