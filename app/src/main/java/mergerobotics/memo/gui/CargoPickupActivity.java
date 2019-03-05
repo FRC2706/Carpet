@@ -26,11 +26,18 @@ public class CargoPickupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cargopickup);
 
         // Extract the data passed from previous activity via the intent extras
         Intent thisIntent = getIntent(); // retrieve intent once
         currentEvent = (Event) thisIntent.getSerializableExtra(EVENT_REF);
+
+        // Load the layout based on whether we are in Autonomous or Teleop phase
+        if (currentEvent.phase == Event.Phase.TELEOP) {
+            setContentView(R.layout.activity_cargopickupteleop);
+        } else {
+            setContentView(R.layout.activity_cargopickup);
+        }
+
     }
 
     public void cargoPickupHandler(View view) {
@@ -59,7 +66,7 @@ public class CargoPickupActivity extends AppCompatActivity {
         Utilities.toastPlusLog(this,
                 currentEvent.eventType + " pickup " + buttonText);
 
-        currentEvent.location = buttonText;
+        currentEvent.extra = buttonText; // we use the extra field for many things based on event type
         currentEvent.endTime = SystemClock.currentThreadTimeMillis();
 
         // Store the pickup event in the database
@@ -83,74 +90,7 @@ public class CargoPickupActivity extends AppCompatActivity {
         intent.putExtra(EVENT_REF, currentEvent);
         startActivity(intent);
 
-        // Return to calling page after the delivery cycle as been completed
-        finish();
-
-    }
-
-    //***** The following methods are OBSOLETE, leaving for now, should use pickupHandler
-    public void cargoPickupLoadingStation (View view) {
-    /*
-        Each button click will
-        - provide a feedback view message
-        - pass on the button selection (pre-loaded, loading station, ground, depot)
-        - launch the delivery cycle who will complete the cycle (unless user cancels)
-        - dismiss the window to return to calling page
-        */
-
-        Toast myToast = Toast.makeText(this, "Cargo pickup loading stn",
-                Toast.LENGTH_SHORT);
-        myToast.show();
-        Log.i(getClass().getName(), "Cargo pickup loading stn"); // replace with db write
-
-        Intent intent = new Intent(this, DeliveryCycleActivity.class);
-        startActivity(intent);
-
-        // Return to calling page after the delivery cycle as been completed
-        finish();
-
-    }
-
-    public void cargoPickupPreloaded (View view) {
-    /*
-        Each button click will
-        - provide a feedback view message
-        - pass on the button selection (pre-loaded, loading station, ground, depot)
-        - launch the delivery cycle who will complete the cycle (unless user cancels)
-        - dismiss the window to return to calling page
-        */
-
-        Toast myToast = Toast.makeText(this, "Cargo pickup preloaded",
-                Toast.LENGTH_SHORT);
-        myToast.show();
-        Log.i(getClass().getName(), "Cargo pickup preloaded"); // replace with db write
-
-        Intent intent = new Intent(this, DeliveryCycleActivity.class);
-        startActivity(intent);
-
-        // Return to calling page after the delivery cycle as been completed
-        finish();
-
-    }
-
-    public void cargoPickupDepot (View view) {
-    /*
-        Each button click will
-        - provide a feedback view message
-        - pass on the button selection (pre-loaded, loading station, ground, depot)
-        - launch the delivery cycle who will complete the cycle (unless user cancels)
-        - dismiss the window to return to calling page
-        */
-
-        Toast myToast = Toast.makeText(this, "Cargo pickup depot",
-                Toast.LENGTH_SHORT);
-        myToast.show();
-        Log.i(getClass().getName(), "Cargo pickup depot");
-
-        Intent intent = new Intent(this, DeliveryCycleActivity.class);
-        startActivity(intent);
-
-        // Return to calling page after the delivery cycle as been completed
+        // Return to calling page after the delivery cycle activity has been completed
         finish();
 
     }

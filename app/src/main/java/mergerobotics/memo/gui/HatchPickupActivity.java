@@ -31,15 +31,21 @@ public class HatchPickupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hatchpickup);
 
         // Extract the data passed from previous activity via the intent extras
         Intent thisIntent = getIntent(); // retrieve intent once
         currentEvent = (Event) thisIntent.getSerializableExtra(EVENT_REF);
+
+        // Load the layout based on whether we are in Autonomous or Teleop phase
+        if (currentEvent.phase == Event.Phase.TELEOP) {
+            setContentView(R.layout.activity_hatchpickupteleop);
+        } else {
+            setContentView(R.layout.activity_hatchpickup);
+        }
     }
 
     /* Each activity needs to define it's onClick methods (or within it's hierarchy)
-        in order to be able to see them in list in the layout editor
+        in order to be able to see them in the list in the layout editor
     */
     public void hatchPickupHandler(View view) {
     /*
@@ -61,23 +67,28 @@ public class HatchPickupActivity extends AppCompatActivity {
         eDB = new EventsDbAdapter(this);
         eDB.open();
 
-        // Determine the game piece type from button label
+        // Determine the pickup location from the button label
         Button b = (Button)view;
         String buttonText = b.getText().toString();
         Utilities.toastPlusLog(this,
                 currentEvent.eventType + " pickup " + buttonText);
 
-        currentEvent.location = buttonText;
+        currentEvent.extra = buttonText; // extra field is context sensitive based on event type
         currentEvent.endTime = SystemClock.currentThreadTimeMillis();
-
-        // Store the pickup event in the database
-        long id = eDB.insertData(currentEvent);
-        // if id is <= 0 then db write failed, for now continue
-        toastPlusLog(this, "Pickup " + buttonText +  "event write result " + Long.toString(id));
 
         // Calculate the pickup cycle time based on delivery button click
         double cycleTime = currentEvent.endTime - currentEvent.startTime;
-        toastPlusLog( this, "Pickup cycle time in ms: " + Double.toString(cycleTime));
+
+        // stash the cycle time in signature string for now, signature is not implemented yet
+        currentEvent.signature = Double.toString(cycleTime);
+
+        // Store the pickup event in the database
+        long id = eDB.insertData(currentEvent);
+
+        // if id is <= 0 then db write failed, for now continue
+        toastPlusLog(this, "Pickup " + buttonText +  " write result " + Long.toString(id));
+
+        toastPlusLog( this, "Pickup cycle time in ms: " + currentEvent.signature);
 
         // pass the event data to the delivery cycle
         Intent intent = new Intent(this, DeliveryCycleActivity.class);
@@ -89,71 +100,6 @@ public class HatchPickupActivity extends AppCompatActivity {
 
     }
 
-    public void hatchPickupGround (View view) {
-    /*
-        Each button click will
-        - provide a feedback view message
-        - pass on the button selection (pre-loaded, loading station, ground)
-        - launch the delivery cycle who will complete the cycle (unless user cancels)
-        - dismiss the window to return to calling page
-        */
-
-        Toast myToast = Toast.makeText(this, "Hatch pickup ground",
-                Toast.LENGTH_SHORT);
-        myToast.show();
-        Log.i(getClass().getName(), "Hatch pickup ground");
-
-        Intent intent = new Intent(this, DeliveryCycleActivity.class);
-        startActivity(intent);
-
-        // Return to calling page after the delivery cycle as been completed
-        finish();
-
-    }
-
-    public void hatchPickupLoadingStation (View view) {
-    /*
-        Each button click will
-        - provide a feedback view message
-        - pass on the button selection (pre-loaded, loading station, ground)
-        - launch the delivery cycle who will complete the cycle (unless user cancels)
-        - dismiss the window to return to calling page
-        */
-
-        Toast myToast = Toast.makeText(this, "Hatch pickup loading stn",
-                Toast.LENGTH_SHORT);
-        myToast.show();
-        Log.i(getClass().getName(), "Hatch pickup loading stn");
-
-        Intent intent = new Intent(this, DeliveryCycleActivity.class);
-        startActivity(intent);
-
-        // Return to calling page after the delivery cycle as been completed
-        finish();
-
-    }
-
-    public void hatchPickupPreloaded (View view) {
-    /*
-        Each button click will
-        - provide a feedback view message
-        - pass on the button selection (pre-loaded, loading station, ground)
-        - launch the delivery cycle who will complete the cycle (unless user cancels)
-        - dismiss the window to return to calling page
-        */
-
-        Toast myToast = Toast.makeText(this, "Hatch pickup preloaded",
-                Toast.LENGTH_SHORT);
-        myToast.show();
-        Log.i(getClass().getName(), "Hatch pickup preloaded");
-
-        Intent intent = new Intent(this, DeliveryCycleActivity.class);
-        startActivity(intent);
-
-        // Return to calling page after the delivery cycle as been completed
-        finish();
-
-    }
 
     public void cancelled (View view) {
     /*
