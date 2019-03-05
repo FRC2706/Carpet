@@ -77,7 +77,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="testing for ethan"
+        android:text="@string/test_and_export"
         android:onClick="changeTestPage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,9 +85,10 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
         app:layout_constraintVertical_bias="0.227" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="87dp"
+    <LinearLayout
+
+        android:id="@+id/comments"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -95,11 +96,45 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:onClick="changeteaminfoPage"
-        android:text="Button"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/testButton" />
+        app:layout_constraintTop_toBottomOf="@+id/toTeleop">
 
+        <EditText
+            android:id="@+id/teamNumber"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusableInTouchMode="true"
+            android:hint="@string/team"
+            android:inputType="number"
+            android:nextFocusLeft="@id/hatch_button"                 android:nextFocusUp="@id/comment" />
+        android:nextFocusUp="@id/hatch_button"
+        android:nextFocusRight="@id/comment" />
+
+        <EditText
+            android:id="@+id/comment"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusableInTouchMode="true"
+            android:hint="@string/comment"
+            android:inputType="text"
+            android:nextFocusLeft="@id/teamNumber"
+            android:nextFocusUp="@id/hatch_button" />
+
+        <Button
+            android:id="@+id/goButton"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/roundedbutton"
+            android:onClick="goHandler"
+            android:text="@string/go"
+            android:nextFocusUp="@+id/hatch_button"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

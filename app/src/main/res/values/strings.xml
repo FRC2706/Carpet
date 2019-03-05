@@ -5,7 +5,7 @@
     <string name="PROPERTY_event">Event</string>
     <string name="TBA_TEST_EVENT">TestEvent</string>
     <string name="title_activity_sandstorm">Sandstorm</string>
-    <string name="title_activity_test">test</string>
+    <string name="title_activity_test">Test and Export</string>
     <string name="loading_station">loading station</string>
     <string name="cargo_pickup">Cargo</string>
     <string name="pre_loaded">Pre-loaded</string>
@@ -26,6 +26,12 @@
     <string name="hatch">Hatch</string>
     <string name="pickup_options">Pickup options:</string>
     <string name="start_level">Start Level</string>
-    <string name="comic_sans">Comic sans</string>
-    <string name="textview">TextView</string>
+    <string name="event_data">Event Data</string>
+    <string name="test_and_export">Test and Export</string>
+    <string name="rocket_level_3">rocket level 3</string>
+    <string name="dropped">dropped</string>
+    <string name="delivery">Delivery</string>
+    <string name="cargo_ship">Cargo ship</string>
+    <string name="rocket_level_2">rocket level 2</string>
+    <string name="rocket_level_1">rocket level 1</string>
 </resources>

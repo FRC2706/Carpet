@@ -37,7 +37,6 @@ public class sandstormActivity extends AppCompatActivity {
     private int remainTime = 15;
 
     EditText commentText, commentTeamText;
-    private String comments, commentTeam;
 
     // Create an event to populate user input and share with subsequent activities
     Event currentEvent;
@@ -56,7 +55,7 @@ public class sandstormActivity extends AppCompatActivity {
         scoutTeam = thisIntent.getIntExtra(SCOUT_TEAM, 2706);
         matchNum = thisIntent.getIntExtra(MATCH, 0);
 
-        currentEvent = new Event(Event.Phase.SAND, "NIL",
+        currentEvent = new Event(Event.Phase.AUTONOMOUS, "NIL",
                 teamNum, matchNum,
                 " ", scoutName, scoutTeam);
 
@@ -107,7 +106,7 @@ public class sandstormActivity extends AppCompatActivity {
         toastPlusLog( this, tempStartData);
 
         // Save the non-cycle event data in the database before proceeding to Teleop
-        Event startingEvent = new Event(Event.Phase.SAND, Event.Cycle.START.toString(), teamNum, matchNum,
+        Event startingEvent = new Event(Event.Phase.AUTONOMOUS, Event.Cycle.START.toString(), teamNum, matchNum,
                 " Start lvl 1 Driver CrossHabline", scoutName, scoutTeam);
 
         // Insert the event
@@ -158,7 +157,6 @@ public class sandstormActivity extends AppCompatActivity {
     }
 
     public void goHandler(View view){
-        Intent intent = new Intent(this, DeliveryCycleActivity.class);
 
         // GO button has been pushed, get the user's comment data if any
         commentText = (EditText) findViewById(R.id.comment);
@@ -176,7 +174,7 @@ public class sandstormActivity extends AppCompatActivity {
                 cTeam = Integer.parseInt(commentTeam);
             }
 
-            Event commentEvent = new Event(Event.Phase.SAND, Event.Cycle.OTHER.toString(),
+            Event commentEvent = new Event(Event.Phase.AUTONOMOUS, Event.Cycle.COMMENT.toString(),
                     cTeam, matchNum, comments, scoutName, scoutTeam);
             commentEvent.startTime = SystemClock.currentThreadTimeMillis();
 
