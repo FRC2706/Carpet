@@ -64,20 +64,19 @@ public class TestAndExport extends AppCompatActivity {
     public String createEventsCsvString(Context context) {
 
         StringBuilder sb = new StringBuilder();
-        // Add the header columns
+        // Add the header columns, in desired order
         writeCell(sb, _ID);
         writeCell(sb, COLUMN_NAME_SYNC_TIME);
-        writeCell(sb, COLUMN_NAME_TYPE);
         writeCell(sb, COLUMN_NAME_TEAM);
         writeCell(sb, COLUMN_NAME_MATCH);
-//        writeCell(sb, COLUMN_NAME_LOCATION);
-        writeCell(sb, COLUMN_NAME_COMPETITION);
-        writeCell(sb, COLUMN_NAME_SUCCESS);
-        writeCell(sb, COLUMN_NAME_START_TIME);
-        writeCell(sb, COLUMN_NAME_END_TIME);
+        writeCell(sb, COLUMN_NAME_TYPE);
         writeCell(sb, COLUMN_NAME_EXTRA);
         writeCell(sb, COLUMN_NAME_SCOUT_NAME);
         writeCell(sb, COLUMN_NAME_SCOUT_TEAM);
+        writeCell(sb, COLUMN_NAME_COMPETITION);
+        writeCell(sb, COLUMN_NAME_SUCCESS + " cycle time"); // using success field for cycle time as well
+        writeCell(sb, COLUMN_NAME_START_TIME);
+        writeCell(sb, COLUMN_NAME_END_TIME);
         writeCell(sb, COLUMN_NAME_SIGNATURE);
         sb.append("\n");
 
@@ -86,55 +85,6 @@ public class TestAndExport extends AppCompatActivity {
         String eventsData = eDB.getDataInCsvString();
 
         sb.append(eventsData);
-        // Print all the stuff
-//        for(int i = 0; i < teamArray.length(); i++) {
-//            try {
-//                TeamStatsReport teamStatsReport = statsEngine.getTeamStatsReport(Integer.parseInt(((String) teamArray.get(i)).substring(3)), false);
-//
-//                writeCell(sb, teamStatsReport.teamNumber);
-//                writeCell(sb, teamStatsReport.OPR);
-//                writeCell(sb, teamStatsReport.DPR);
-//                writeCell(sb, teamStatsReport.CCWM);
-//                writeCell(sb, teamStatsReport.scheduleToughnessByOPR);
-//                writeCell(sb, teamStatsReport.wins);
-//                writeCell(sb, teamStatsReport.losses);
-//                writeCell(sb, teamStatsReport.ties);
-//                writeCell(sb, teamStatsReport.autoPickupGround);
-//                writeCell(sb, teamStatsReport.autoTotalPlacedCubes);
-//                writeCell(sb, teamStatsReport.autoCrossedLine);
-//                writeCell(sb, teamStatsReport.autoMalfunction);
-//                writeCell(sb, teamStatsReport.pickupPortalAvgMatch);
-//                writeCell(sb, teamStatsReport.pickupGroundAvgMatch);
-//                writeCell(sb, teamStatsReport.pickupExchangeAvgMatch);
-//                writeCell(sb, teamStatsReport.placeScaleAvgMatch);
-//                writeCell(sb, teamStatsReport.placeSwitchAvgMatch);
-//                writeCell(sb, teamStatsReport.placeExchangeAvgMatch);
-//                writeCell(sb, teamStatsReport.totalFumbles);
-//                writeCell(sb, teamStatsReport.totalEasyDrop);
-//                writeCell(sb, teamStatsReport.totalLeftIt);
-//                writeCell(sb, teamStatsReport.switchAvgCycleTime);
-//                writeCell(sb, teamStatsReport.scaleAvgCycleTime);
-//                writeCell(sb, teamStatsReport.exchangeAvgCycleTime);
-//                writeCell(sb, teamStatsReport.droppedAvgCycleTime);
-//                writeCell(sb, teamStatsReport.avgDeadness);
-//                writeCell(sb, teamStatsReport.highestDeadness);
-//                writeCell(sb, (teamStatsReport.numMatchesPlayed - teamStatsReport.numMatchesNoDeadness));
-//                writeCell(sb, teamStatsReport.avgClimbTime);
-//                writeCell(sb, teamStatsReport.noClimb);
-//                writeCell(sb, teamStatsReport.failClimb);
-//                writeCell(sb, teamStatsReport.independentClimb);
-//                writeCell(sb, teamStatsReport.assistedClimb);
-//                writeCell(sb, teamStatsReport.assistedOthersClimb);
-//                writeCell(sb, teamStatsReport.onBase);
-//                writeCell(sb, teamStatsReport.avgTimeDefending);
-//                writeCell(sb, teamStatsReport.maxTimeDefending);
-//
-//                // New line
-//                sb.append("\n");
-//            } catch(JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
 
         return sb.toString();
     }

@@ -60,10 +60,9 @@ public class DeliveryCycleActivity extends AppCompatActivity {
         currentEvent.endTime = SystemClock.currentThreadTimeMillis();
 
         // Calculate the full cycle time based on delivery button click
-        double cycleTime = currentEvent.endTime - currentEvent.startTime;
-        currentEvent.signature = Double.toString(cycleTime);
+        currentEvent.success = (int) (currentEvent.endTime - currentEvent.startTime);
 
-        toastPlusLog( this, "Full cycle time in ms: " + currentEvent.signature);
+        toastPlusLog( this, "Full cycle time in ms: " + currentEvent.success);
 
         // Store the delivery event in the database
         long id = eDB.insertData(currentEvent);

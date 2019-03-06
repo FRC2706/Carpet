@@ -158,16 +158,16 @@ public class EventsDbAdapter {
                 // add rest of columns later
                 buffer.append(currentEvent._id + ", " +
                         Double.toString(currentEvent.timestamp) + ", " +
-                        currentEvent.eventType + ", " +
                         Integer.toString(currentEvent.teamNum) + ", " +
                         Integer.toString(currentEvent.match) + ", " +
+                        currentEvent.eventType + ", " +
+                        currentEvent.extra + ", " +
+                        currentEvent.scoutName + ", " +
+                        currentEvent.scoutTeam + ", " +
                         currentEvent.competition + ", " +
                         Integer.toString(currentEvent.success) + ", " +
                         Double.toString(currentEvent.startTime) + ", " +
                         Double.toString(currentEvent.endTime) + ", " +
-                        currentEvent.extra + ", " +
-                        currentEvent.scoutName + ", " +
-                        currentEvent.scoutTeam + ", " +
                         currentEvent.signature + ", " +
                         " \n");
             }

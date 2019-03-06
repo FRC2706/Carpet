@@ -2,12 +2,15 @@ package mergerobotics.memo.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import mergerobotics.memo.R;
 import mergerobotics.memo.dataobjects.Event;
@@ -27,6 +30,12 @@ public class sandstormActivity extends AppCompatActivity {
     // NB: scoutTeam not currently in GUI user input
     private String scoutName;
     private int teamNum, matchNum, scoutTeam;
+
+    //timer variables
+    private Handler m_handler;
+    private Runnable m_handlerTask;
+    private volatile boolean stopTimer;
+    private int remainTime = 15;
 
     EditText commentText, commentTeamText;
 
@@ -51,42 +60,82 @@ public class sandstormActivity extends AppCompatActivity {
                 teamNum, matchNum,
                 " ", scoutName, scoutTeam);
 
+
+        final TextView tvGameTime = (TextView) findViewById(R.id.autoTimer);
+        m_handler = new Handler();
+        m_handlerTask = new Runnable() {
+            @Override
+            public void run() {
+
+                if (remainTime == 0) {
+                    tvGameTime.setText("Times Up");
+                } else {
+                    remainTime--;
+                    int minuets = remainTime / 60;
+                    int remainSec = remainTime - minuets * 60;
+                    String remainSecString;
+                    if (remainSec < 10)
+                        remainSecString = "0" + remainSec;
+                    else
+                        remainSecString = remainSec + "";
+// woo
+                    tvGameTime.setText(minuets + ":" + remainSecString);
+
+                    // set an alarm to run this again in 1 second
+                    if (!stopTimer)
+                        m_handler.postDelayed(m_handlerTask, 1000);  // 1 second delay
+                }
+            }
+        };
+        m_handlerTask.run();
+    }
+
+    public void startLevel (View view){
+        Intent startLevelIntent = new Intent(this, StartLevelActivity.class);
+
+        // Pass on the event instance to the teleop activity
+        startLevelIntent.putExtra(EVENT_REF, currentEvent);
+        startActivity(startLevelIntent);
+    }
+
+    public void onCheckboxClicked (View view){
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Save the control or habline input from autonomous phase
+        CheckBox c = (CheckBox)view;
+        String checkboxText = c.getText().toString();
+
+        // Note that unchecking does NOT remove the data from the database, duplicates can be ignored
+        if (checked) {
+            // get a reference to the events table
+            EventsDbAdapter eDB = new EventsDbAdapter(this);
+            eDB.open();
+
+            // Save the user checkbox data in an event
+            Event newEvent = new Event(Event.Phase.AUTONOMOUS, Event.Cycle.START.toString(), teamNum, matchNum,
+                checkboxText, scoutName, scoutTeam);
+
+            // Insert the event
+            long id = eDB.insertData(newEvent);
+            if(id<=0)
+            {
+                // Failed to update the database
+                toastPlusLog( this, checkboxText + " Failed");
+            } else
+            {
+                // Event saved to  the database
+                toastPlusLog( this, checkboxText + " Saved " + Long.toString(id));
+            }
+        }
+
     }
 
     public void teleopPage(View view){
         Intent teleopIntent = new Intent(this, teleopActivity2019.class);
 
-        // get our own reference to the table, should already exist at this point
-        EventsDbAdapter eDB = new EventsDbAdapter(this);
-        eDB.open();
-
-        // @TODO Need to handle the start level and control input from user,
-        // hardcode for now and store in comments. Remove this later.
-        String tempStartData = new String (scoutName + " team: " + Integer.toString(teamNum) +
-                " Start lvl 1 Driver CrossHabline"
-                 );
-
-        // echo values before proceeding
-        toastPlusLog( this, tempStartData);
-
-        // Save the non-cycle event data in the database before proceeding to Teleop
-        Event startingEvent = new Event(Event.Phase.AUTONOMOUS, Event.Cycle.START.toString(), teamNum, matchNum,
-                " Start lvl 1 Driver CrossHabline", scoutName, scoutTeam);
-
-        // Insert the event
-        long id = eDB.insertData(startingEvent);
-        if(id<=0)
-        {
-            // Failed to update the database
-            toastPlusLog( this, tempStartData + " Failed");
-        } else
-        {
-            // Event saved to  the database
-            toastPlusLog( this, tempStartData + " Saved " + Long.toString(id));
-        }
-
-        // Pass on the event instance to the teleop activity
-        teleopIntent.putExtra(EVENT_REF, startingEvent);
+        // Pass on the event data to the teleop activity
+        teleopIntent.putExtra(EVENT_REF, currentEvent);
         startActivity(teleopIntent);
     }
 

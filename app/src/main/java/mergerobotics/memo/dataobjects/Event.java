@@ -100,7 +100,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.extra = comments;
         this.scoutName = scout;
         this.scoutTeam = scoutingTeam;
-        this.signature = "jpl"; //hardcoded text for now
+        this.signature = ""; //hardcoded text for now
 
     }
 
@@ -125,7 +125,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.extra = comments;
         this.scoutName = scout;
         this.scoutTeam = scoutingTeam;
-        this.signature = "jpl"; //hardcoded text for now
+        this.signature = ""; //hardcoded text for now
 
     }
 

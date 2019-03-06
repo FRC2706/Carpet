@@ -76,19 +76,11 @@ public class HatchPickupActivity extends AppCompatActivity {
         currentEvent.extra = buttonText; // extra field is context sensitive based on event type
         currentEvent.endTime = SystemClock.currentThreadTimeMillis();
 
-        // Calculate the pickup cycle time based on delivery button click
-        double cycleTime = currentEvent.endTime - currentEvent.startTime;
-
-        // stash the cycle time in signature string for now, signature is not implemented yet
-        currentEvent.signature = Double.toString(cycleTime);
-
         // Store the pickup event in the database
         long id = eDB.insertData(currentEvent);
 
         // if id is <= 0 then db write failed, for now continue
         toastPlusLog(this, "Pickup " + buttonText +  " write result " + Long.toString(id));
-
-        toastPlusLog( this, "Pickup cycle time in ms: " + currentEvent.signature);
 
         // pass the event data to the delivery cycle
         Intent intent = new Intent(this, DeliveryCycleActivity.class);
