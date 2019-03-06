@@ -24,7 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <Button
         android:id="@+id/eventdata_button"
         android:layout_width="270dp"
@@ -34,7 +33,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/roundedbutton_grey"
         android:onClick="dumpEventsData"
-        android:text="Export event data to CSV"
+        android:text="@string/export_event_data_to_csv"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"

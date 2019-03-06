@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import mergerobotics.memo.R;
-import mergerobotics.memo.db.EventsDbAdapter;
 
 import static mergerobotics.memo.utilities.Utilities.toastPlusLog;
 
@@ -23,18 +22,9 @@ public class prematchActivity extends AppCompatActivity {
     // This data needs to be shared NB: scoutTeam not currently in GUI user input
     EditText scoutName, teamNum , matchNum;
 
-    // Keep a reference to the events table
-    public EventsDbAdapter eventsTable;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Initial creation of the events db, not needed earlier at this time
-        eventsTable = new EventsDbAdapter(this);
-        eventsTable.open();
-        toastPlusLog( this, "DB opened"); // can delete this later
-
         setContentView(R.layout.activity_prematch);
     }
 
