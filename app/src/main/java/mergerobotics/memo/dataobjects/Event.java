@@ -13,14 +13,14 @@ import java.util.Date;
 public class Event implements Comparable<Event>, Serializable {
 
     public enum Phase {
-        PREMATCH, SAND, TELEOP, ENDGAME
+        AUTONOMOUS, ENDGAME, PREMATCH, TELEOP
     }
 
     // Used for event Type in the events table
     public enum Cycle {
-        NIL, START, DRIVER, CARGO, HATCH, CLIMB, DEADNESS, OTHER
+        CARGO, CLIMB, COMMENT, DEADNESS, DRIVER, HATCH, NIL, OTHER, START
     }
-// **** Not needed, using button labels
+// **** Not needed, using button labels but kept here for reference
 //    // Used for pickup location, to be mapped to pickup in the events table
 //    public enum Pickup {
 //        NIL, PRELOADED, LOADINGSTN, DEPOT, GROUND,
@@ -37,19 +37,20 @@ public class Event implements Comparable<Event>, Serializable {
         enums will be mapped to db definitions
             */
     // @TODO should do setters and getters
-    public String scoutName;
-    public int scoutTeam;
+
+    public int _id; // used for database extract, corresponds to key
     public double timestamp;
     public int teamNum;
     public int match;
-    public Phase phase;
+    public Phase phase; // not in the db, to be deleted if not needed for reports
     public String eventType;
-    public String location;
     public String competition;
     public int success;
     public double startTime;
     public double endTime;
     public String extra;
+    public String scoutName;
+    public int scoutTeam;
     public String signature;
 
 
@@ -62,10 +63,10 @@ public class Event implements Comparable<Event>, Serializable {
 
         Date date = new Date();
 
+        this._id = -1;
         this.timestamp = SystemClock.currentThreadTimeMillis();
         this.phase = phase;
         this.eventType = eventType;
-        this.location = "NIL";
         this.teamNum = teamNum;
         this.match = match;
         this.competition = date.toString();
@@ -75,7 +76,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.extra = comments;
         this.scoutName = scout;
         this.scoutTeam = scoutingTeam;
-        this.signature = "TODO"; //hardcoded text for now
+        this.signature = ""; //hardcoded text for now
 
     }
 
@@ -86,10 +87,10 @@ public class Event implements Comparable<Event>, Serializable {
 
         Date date = new Date();
 
+        this._id = -1;
         this.timestamp = timestamp;
         this.phase = phase;
         this.eventType = cycle;
-        this.location = location;
         this.teamNum = teamNum;
         this.match = match;
         this.competition = date.toString(); // default to the date, could add to GUI
@@ -99,7 +100,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.extra = comments;
         this.scoutName = scout;
         this.scoutTeam = scoutingTeam;
-        this.signature = "jpl"; //hardcoded text for now
+        this.signature = ""; //hardcoded text for now
 
     }
 
@@ -111,10 +112,10 @@ public class Event implements Comparable<Event>, Serializable {
 
         Date date = new Date();
 
+        this._id = -1;
         this.timestamp = timestamp;
         this.phase = phase;
         this.eventType = cycle;
-        this.location = location;
         this.teamNum = teamNum;
         this.match = match;
         this.competition = date.toString(); // default to the date, could add to GUI
@@ -124,7 +125,29 @@ public class Event implements Comparable<Event>, Serializable {
         this.extra = comments;
         this.scoutName = scout;
         this.scoutTeam = scoutingTeam;
-        this.signature = "jpl"; //hardcoded text for now
+        this.signature = ""; //hardcoded text for now
+
+    }
+
+    public Event() {
+        // Empty constructor for use primarily in database and report operations
+
+        Date date = new Date();
+
+        this._id = -1;
+        this.timestamp = 0;
+        this.phase = Phase.TELEOP;
+        this.eventType = "";
+        this.teamNum = 0;
+        this.match = 0;
+        this.competition = date.toString(); // default to the date, could add to GUI
+        this.success = 1; // not sure we need this, default to successful
+        this.startTime = 0;
+        this.endTime = 0;
+        this.extra = "";
+        this.scoutName = "";
+        this.scoutTeam = 2706;
+        this.signature = ""; //hardcoded text for now
 
     }
 

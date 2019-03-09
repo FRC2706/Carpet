@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import mergerobotics.memo.R;
@@ -41,7 +41,7 @@ public class DeliveryCycleActivity extends AppCompatActivity {
         Each button click will
         - provide a feedback view message
         - reset end time in the event data upon delivery outcome button selection
-        - calculate a full cycle time (not saved in db at this time)
+        - calculate a full cycle time
         - write to the events database (unless cancelled)
         - dismiss the window to return to previous page
         */
@@ -56,11 +56,15 @@ public class DeliveryCycleActivity extends AppCompatActivity {
         Utilities.toastPlusLog(this,
                 currentEvent.eventType + " delivery location " + buttonText);
 
-        currentEvent.extra = currentEvent.extra + " " + buttonText; //for now
-        currentEvent.location = buttonText;
+        currentEvent.extra = buttonText; // extra field is context sensitive based on type
         currentEvent.endTime = SystemClock.currentThreadTimeMillis();
 
-        // Store the pickup event in the database
+        // Calculate the full cycle time based on delivery button click
+        currentEvent.success = (int) (currentEvent.endTime - currentEvent.startTime);
+
+        toastPlusLog( this, "Full cycle time in ms: " + currentEvent.success);
+
+        // Store the delivery event in the database
         long id = eDB.insertData(currentEvent);
         if(id<=0)
         {
@@ -72,78 +76,45 @@ public class DeliveryCycleActivity extends AppCompatActivity {
             toastPlusLog( this, buttonText + " saved " + Long.toString(id));
         }
 
-        // Calculate the full cycle time based on delivery button click
-        double cycleTime = currentEvent.endTime - currentEvent.startTime;
-        toastPlusLog( this, "Full cycle time in ms: " + Double.toString(cycleTime));
-
         finish();
     }
 
+    public void goHandler(View view){
+        EditText commentText, commentTeamText;
 
-    // The following methods are no longer needed (should use delivery handler), will remove later
-    public void deliverCargoToRocketLvl1 (View view) {
-    /*
-        Each button click will
-        - provide a feedback view message
-        - write to the events database
-        - dismiss the window to return to previous page
-        */
-        Toast myToast = Toast.makeText(this, "Delivery to Rocket Ship lvl 1",
-                Toast.LENGTH_SHORT);
-        myToast.show();
-        Log.i(getClass().getName(), "Delivery to Rocket Ship lvl 1");
+        // GO button has been pushed, get the user's comment data if any
+        commentText = (EditText) findViewById(R.id.comment);
+        String comments = commentText.getText().toString();
 
-        // Return to previous page, do we want a slight delay ?
-        finish();
-    }
+        // Create an event to store the comment if not empty, team part of the comment can be empty
+        if (!comments.matches("")) {
+            int cTeam = currentEvent.teamNum; // default to the team number being scouted
 
+            commentTeamText = findViewById(R.id.teamNumber);
+            String commentTeam = commentTeamText.getText().toString();
 
-    public void deliverCargoToRocketLvl2 (View view) {
-    /*
-        Each button click will
-        - provide a feedback view message
-        - write to the events database
-        - dismiss the window to return to previous page
-        */
-        Toast myToast = Toast.makeText(this, "Delivery to Rocket Ship lvl 2",
-                Toast.LENGTH_SHORT);
-        myToast.show();
-        Log.i(getClass().getName(), "Delivery to Rocket Ship lvl 2");
+            if (!commentTeam.matches("")) {
+                // GUI ensures that a number was entered
+                cTeam = Integer.parseInt(commentTeam);
+            }
 
-        // Return to previous page, do we want a slight delay ?
-        finish();
-    }
+            Event commentEvent = new Event(Event.Phase.AUTONOMOUS, Event.Cycle.COMMENT.toString(),
+                    cTeam, currentEvent.match, comments, currentEvent.scoutName, currentEvent.scoutTeam);
+            commentEvent.startTime = SystemClock.currentThreadTimeMillis();
 
-    public void deliverCargoToRocketLvl3 (View view) {
-    /*
-        Each button click will
-        - provide a feedback view message
-        - write to the events database
-        - dismiss the window to return to previous page
-        */
-        Toast myToast = Toast.makeText(this, "Delivery to Rocket Ship lvl 3",
-                Toast.LENGTH_SHORT);
-        myToast.show();
-        Log.i(getClass().getName(), "Delivery to Rocket Ship lvl 3");
+            // Save the event in the database
+            EventsDbAdapter eDB = new EventsDbAdapter(this);
+            eDB.open();
 
-        // Return to previous page
-        finish();
-    }
+            // Insert the event
+            long id = eDB.insertData(commentEvent);
 
-    public void deliveryDropped (View view) {
-    /*
-        Each button click will
-        - provide a feedback view message
-        - write to the events database
-        - dismiss the window to return to previous page
-        */
-        Toast myToast = Toast.makeText(this, "Delivery dropped",
-                Toast.LENGTH_SHORT);
-        myToast.show();
-        Log.i(getClass().getName(), "Delivery dropped");
-
-        // Return to previous page, do we want a slight delay ?
-        finish();
+            // Could provide a better failure message later if desired, keeping as is for now as the
+            // id will give the key number of the entry in the table providing a warm fuzzy on how
+            // many entries are in the db
+            toastPlusLog(this, "Comment event write result " + Long.toString(id));
+        }
+        commentText.clearFocus();
     }
 
     public void cancelled (View view) {
@@ -158,7 +129,6 @@ public class DeliveryCycleActivity extends AppCompatActivity {
         Toast myToast = Toast.makeText(this, "Cancelled",
                 Toast.LENGTH_SHORT);
         myToast.show();
-        Log.i(getClass().getName(), "Cancelled"); // remove later
 
         finish();
 

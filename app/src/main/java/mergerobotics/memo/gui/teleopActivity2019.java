@@ -69,6 +69,7 @@ public class teleopActivity2019 extends AppCompatActivity {
         Intent intent = new Intent(this, endgame.class);
 
         // Pass on the event instance to the next activity
+        currentEvent.phase = Event.Phase.ENDGAME;
         intent.putExtra(EVENT_REF, currentEvent);
         startActivity(intent);
     }
@@ -81,11 +82,10 @@ public class teleopActivity2019 extends AppCompatActivity {
         Button b = (Button)view;
         String buttonText = b.getText().toString();
 
-        // Update event with game piece input
-        int vId=  view.getId();
-        int cButton = R.id.cargo_button;
-            currentEvent.eventType = buttonText;
-            currentEvent.startTime = SystemClock.currentThreadTimeMillis();
+        // Update event with game piece selected and phase
+        currentEvent.phase = Event.Phase.TELEOP;
+        currentEvent.eventType = buttonText;
+        currentEvent.startTime = SystemClock.currentThreadTimeMillis();
 
         // Pass on the event instance to the next activity
         intent.putExtra(EVENT_REF, currentEvent);
@@ -99,9 +99,8 @@ public class teleopActivity2019 extends AppCompatActivity {
         Button b = (Button)view;
         String buttonText = b.getText().toString();
 
-        // Update event with game piece input
-        int vId=  view.getId();
-        int cButton = R.id.cargo_button;
+        // Update event with game piece selected and phase
+        currentEvent.phase = Event.Phase.TELEOP;
         currentEvent.eventType = buttonText;
         currentEvent.startTime = SystemClock.currentThreadTimeMillis();
 

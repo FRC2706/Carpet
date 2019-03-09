@@ -62,47 +62,120 @@ public class EventsDbAdapter {
 
     public String getData()
     {
-        SQLiteDatabase db = mEventsHelper.getWritableDatabase();
-        String[] columns = {_ID,COLUMN_NAME_TYPE, COLUMN_NAME_TEAM, COLUMN_NAME_MATCH,
+        SQLiteDatabase db = mEventsHelper.getReadableDatabase();
+        String[] columns = {_ID,COLUMN_NAME_SYNC_TIME,COLUMN_NAME_TYPE, COLUMN_NAME_TEAM, COLUMN_NAME_MATCH,
                 COLUMN_NAME_COMPETITION,COLUMN_NAME_SUCCESS,COLUMN_NAME_START_TIME,COLUMN_NAME_END_TIME,
                 COLUMN_NAME_EXTRA,COLUMN_NAME_SCOUT_NAME, COLUMN_NAME_SCOUT_TEAM, COLUMN_NAME_SIGNATURE };
-        Cursor cursor =db.query(TABLE_NAME, columns, "*",null,null,
+
+//        Cursor cursor = db.query(
+//                TABLE_NAME,             // The table to query
+//                projection,             // The array of columns to return (pass null to get all)
+//                selection,              // The columns for the WHERE clause
+//                selectionArgs,          // The values for the WHERE clause
+//                null,                   // don't group the rows
+//                null,                   // don't filter by row groups
+//                sortOrder               // The sort order
+
+        Cursor cursor =db.query(TABLE_NAME, columns, null,null,null,
                 null,null,null);
-        StringBuffer buffer= new StringBuffer();
-        while (cursor.moveToNext())
-        {
-            int cid= cursor.getInt(cursor.getColumnIndex(_ID));
-            double timestamp= cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_SYNC_TIME));
-            String eventType= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TYPE));
-            int team= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TEAM));
-            int match= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_MATCH));
-            String competition= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_COMPETITION));
-            int success= cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUCCESS));
-            double startTime= cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_START_TIME));
-            double endTime= cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_END_TIME));
-            String extra= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_EXTRA));
-            String scoutName= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SCOUT_NAME));
-            String scoutTeam= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SCOUT_TEAM));
-            String signature= cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SIGNATURE));
 
-            // add rest of columns later
-            buffer.append(cid+ " " +
-                    Double.toString(timestamp) + " " +
-                    eventType + " " +
-                    Integer.toString(team) + " " +
-                    Integer.toString(match) + " " +
-                    competition + " " +
-                    Integer.toString(success) + " " +
-                    Double.toString(startTime) + " " +
-                    Double.toString(endTime) + " " +
-                    extra + " " +
-                    scoutName + " " +
-                    scoutTeam +
-                    signature +
-                    " \n");
+        if (cursor != null) {
+            StringBuffer buffer = new StringBuffer();
+            while (cursor.moveToNext()) {
+                int cid = cursor.getInt(cursor.getColumnIndex(_ID));
+                double timestamp = cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_SYNC_TIME));
+                String eventType = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TYPE));
+                int team = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TEAM));
+                int match = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_MATCH));
+                String competition = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_COMPETITION));
+                int success = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUCCESS));
+                double startTime = cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_START_TIME));
+                double endTime = cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_END_TIME));
+                String extra = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_EXTRA));
+                String scoutName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SCOUT_NAME));
+                String scoutTeam = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SCOUT_TEAM));
+                String signature = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SIGNATURE));
+
+                // add rest of columns later
+                buffer.append(cid + " " +
+                        Double.toString(timestamp) + " " +
+                        eventType + " " +
+                        Integer.toString(team) + " " +
+                        Integer.toString(match) + " " +
+                        competition + " " +
+                        Integer.toString(success) + " " +
+                        Double.toString(startTime) + " " +
+                        Double.toString(endTime) + " " +
+                        extra + " " +
+                        scoutName + " " +
+                        scoutTeam +
+                        signature +
+                        " \n");
+            }
+
+            return buffer.toString();
         }
+        else return "Null cursor";
+    }
 
-        return buffer.toString();
+    public String getDataInCsvString()
+    {
+        SQLiteDatabase db = mEventsHelper.getReadableDatabase();
+        String[] columns = {_ID,COLUMN_NAME_SYNC_TIME,COLUMN_NAME_TYPE, COLUMN_NAME_TEAM, COLUMN_NAME_MATCH,
+                COLUMN_NAME_COMPETITION,COLUMN_NAME_SUCCESS,COLUMN_NAME_START_TIME,COLUMN_NAME_END_TIME,
+                COLUMN_NAME_EXTRA,COLUMN_NAME_SCOUT_NAME, COLUMN_NAME_SCOUT_TEAM, COLUMN_NAME_SIGNATURE };
+
+//        Explanation Cursor cursor = db.query(
+//                TABLE_NAME,             // The table to query
+//                projection,             // The array of columns to return (pass null to get all)
+//                selection,              // The columns for the WHERE clause
+//                selectionArgs,          // The values for the WHERE clause
+//                null,                   // don't group the rows
+//                null,                   // don't filter by row groups
+//                sortOrder               // The sort order
+
+        Cursor cursor =db.query(TABLE_NAME, columns, null,null,null,
+                null,null,null);
+        Event currentEvent = new Event();
+
+        if (cursor != null) {
+            StringBuffer buffer = new StringBuffer();
+            while (cursor.moveToNext()) {
+                currentEvent._id = cursor.getInt(cursor.getColumnIndex(_ID));
+                currentEvent.timestamp = cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_SYNC_TIME));
+                currentEvent.eventType = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TYPE));
+                currentEvent.teamNum = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TEAM));
+                currentEvent.match = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_MATCH));
+                currentEvent.competition = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_COMPETITION));
+                currentEvent.success = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SUCCESS));
+                currentEvent.startTime = cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_START_TIME));
+                currentEvent.endTime = cursor.getDouble(cursor.getColumnIndex(COLUMN_NAME_END_TIME));
+                currentEvent.extra = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_EXTRA));
+                currentEvent.scoutName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SCOUT_NAME));
+                currentEvent.scoutTeam = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_SCOUT_TEAM));
+                currentEvent.signature = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_SIGNATURE));
+
+                // add rest of columns later
+                buffer.append(currentEvent._id + ", " +
+                        Double.toString(currentEvent.timestamp) + ", " +
+                        Integer.toString(currentEvent.teamNum) + ", " +
+                        Integer.toString(currentEvent.match) + ", " +
+                        currentEvent.eventType + ", " +
+                        currentEvent.extra + ", " +
+                        currentEvent.scoutName + ", " +
+                        currentEvent.scoutTeam + ", " +
+                        currentEvent.competition + ", " +
+                        Integer.toString(currentEvent.success) + ", " +
+                        Double.toString(currentEvent.startTime) + ", " +
+                        Double.toString(currentEvent.endTime) + ", " +
+                        currentEvent.signature + ", " +
+                        " \n");
+            }
+
+            cursor.close();
+            return buffer.toString();
+        }
+        else return "Null cursor";
     }
 
     public  int delete(String uname)

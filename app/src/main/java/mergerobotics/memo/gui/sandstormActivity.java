@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -37,7 +38,6 @@ public class sandstormActivity extends AppCompatActivity {
     private int remainTime = 15;
 
     EditText commentText, commentTeamText;
-    private String comments, commentTeam;
 
     // Create an event to populate user input and share with subsequent activities
     Event currentEvent;
@@ -56,7 +56,7 @@ public class sandstormActivity extends AppCompatActivity {
         scoutTeam = thisIntent.getIntExtra(SCOUT_TEAM, 2706);
         matchNum = thisIntent.getIntExtra(MATCH, 0);
 
-        currentEvent = new Event(Event.Phase.SAND, "NIL",
+        currentEvent = new Event(Event.Phase.AUTONOMOUS, "NIL",
                 teamNum, matchNum,
                 " ", scoutName, scoutTeam);
 
@@ -68,7 +68,7 @@ public class sandstormActivity extends AppCompatActivity {
             public void run() {
 
                 if (remainTime == 0) {
-                    tvGameTime.setText("Time Up");
+                    tvGameTime.setText("Times Up");
                 } else {
                     remainTime--;
                     int minuets = remainTime / 60;
@@ -90,40 +90,52 @@ public class sandstormActivity extends AppCompatActivity {
         m_handlerTask.run();
     }
 
+    public void startLevel (View view){
+        Intent startLevelIntent = new Intent(this, StartLevelActivity.class);
+
+        // Pass on the event instance to the teleop activity
+        startLevelIntent.putExtra(EVENT_REF, currentEvent);
+        startActivity(startLevelIntent);
+    }
+
+    public void onCheckboxClicked (View view){
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Save the control or habline input from autonomous phase
+        CheckBox c = (CheckBox)view;
+        String checkboxText = c.getText().toString();
+
+        // Note that unchecking does NOT remove the data from the database, duplicates can be ignored
+        if (checked) {
+            // get a reference to the events table
+            EventsDbAdapter eDB = new EventsDbAdapter(this);
+            eDB.open();
+
+            // Save the user checkbox data in an event
+            Event newEvent = new Event(Event.Phase.AUTONOMOUS, Event.Cycle.START.toString(), teamNum, matchNum,
+                checkboxText, scoutName, scoutTeam);
+
+            // Insert the event
+            long id = eDB.insertData(newEvent);
+            if(id<=0)
+            {
+                // Failed to update the database
+                toastPlusLog( this, checkboxText + " Failed");
+            } else
+            {
+                // Event saved to  the database
+                toastPlusLog( this, checkboxText + " Saved " + Long.toString(id));
+            }
+        }
+
+    }
+
     public void teleopPage(View view){
         Intent teleopIntent = new Intent(this, teleopActivity2019.class);
 
-        // get our own reference to the table, should already exist at this point
-        EventsDbAdapter eDB = new EventsDbAdapter(this);
-        eDB.open();
-
-        // @TODO Need to handle the start level and control input from user,
-        // hardcode for now and store in comments. Remove this later.
-        String tempStartData = new String (scoutName + " team: " + Integer.toString(teamNum) +
-                " Start lvl 1 Driver CrossHabline"
-                 );
-
-        // echo values before proceeding
-        toastPlusLog( this, tempStartData);
-
-        // Save the non-cycle event data in the database before proceeding to Teleop
-        Event startingEvent = new Event(Event.Phase.SAND, Event.Cycle.START.toString(), teamNum, matchNum,
-                " Start lvl 1 Driver CrossHabline", scoutName, scoutTeam);
-
-        // Insert the event
-        long id = eDB.insertData(startingEvent);
-        if(id<=0)
-        {
-            // Failed to update the database
-            toastPlusLog( this, tempStartData + " Failed");
-        } else
-        {
-            // Event saved to  the database
-            toastPlusLog( this, tempStartData + " Saved " + Long.toString(id));
-        }
-
-        // Pass on the event instance to the teleop activity
-        teleopIntent.putExtra(EVENT_REF, startingEvent);
+        // Pass on the event data to the teleop activity
+        teleopIntent.putExtra(EVENT_REF, currentEvent);
         startActivity(teleopIntent);
     }
 
@@ -158,7 +170,6 @@ public class sandstormActivity extends AppCompatActivity {
     }
 
     public void goHandler(View view){
-        Intent intent = new Intent(this, DeliveryCycleActivity.class);
 
         // GO button has been pushed, get the user's comment data if any
         commentText = (EditText) findViewById(R.id.comment);
@@ -176,7 +187,7 @@ public class sandstormActivity extends AppCompatActivity {
                 cTeam = Integer.parseInt(commentTeam);
             }
 
-            Event commentEvent = new Event(Event.Phase.SAND, Event.Cycle.OTHER.toString(),
+            Event commentEvent = new Event(Event.Phase.AUTONOMOUS, Event.Cycle.COMMENT.toString(),
                     cTeam, matchNum, comments, scoutName, scoutTeam);
             commentEvent.startTime = SystemClock.currentThreadTimeMillis();
 
