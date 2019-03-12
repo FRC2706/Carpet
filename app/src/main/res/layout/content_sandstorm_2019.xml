@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:showIn="@layout/activity_sandstorm"
-    tools:context="mergerobotics.memo.gui.sandstormActivity">
+    tools:context="mergerobotics.memo.gui.SandstormActivity">
 
 
     <android.support.constraint.ConstraintLayout

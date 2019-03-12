@@ -10,7 +10,7 @@ import mergerobotics.memo.R;
 
 import static mergerobotics.memo.utilities.Utilities.toastPlusLog;
 
-public class prematchActivity extends AppCompatActivity {
+public class PrematchActivity extends AppCompatActivity {
 
     // definitions for data sharing btw activities (via putExtra)
     private static final String SCOUT_NAME = "scout";
@@ -50,7 +50,7 @@ public class prematchActivity extends AppCompatActivity {
         int scoutTeam = 2706;
 
         if (!scout.matches("") && !team.matches("") && !match.matches("")) {
-            Intent nextIntent = new Intent(this, sandstormActivity.class);
+            Intent nextIntent = new Intent(this, SandstormActivity.class);
 
             // echo these values before proceeding
             toastPlusLog( this, "Scout: " + scout + " Team: " + team + " Match: " + match);

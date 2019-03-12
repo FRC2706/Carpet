@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MEMO</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_teleop_2019">Teleop</string>
@@ -6,7 +6,7 @@
     <string name="TBA_TEST_EVENT">TestEvent</string>
     <string name="title_activity_sandstorm">Sandstorm</string>
     <string name="title_activity_test">Test and Export</string>
-    <string name="loading_station">loading station</string>
+    <string name="loading_station" tools:ignore="ExtraTranslation">loading station</string>
     <string name="cargo_pickup">Cargo</string>
     <string name="pre_loaded">Pre-loaded</string>
     <string name="depot">depot</string>
@@ -37,6 +37,11 @@
     <string name="comic_sans">Comic sans</string>
     <string name="textview">TextView</string>
     <string name="export_event_data_to_csv">Export event data to CSV</string>
-    <string name="level_1">level 1</string>
-    <string name="level_2">level 2</string>
+    <string name="level_1">Level 1</string>
+    <string name="level_2">Level 2</string>
+    <string name="deadness">Deadness (%)</string>
+    <string name="level_3">Level 3</string>
+    <string name="exit">Exit</string>
+    <string name="climb_time_sec">Climb Time (sec)</string>
+    <string name="climb">Climb Level</string>
 </resources>

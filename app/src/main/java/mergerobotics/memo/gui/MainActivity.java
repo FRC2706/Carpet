@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void changePage(View view){
-        Intent name = new Intent(this, prematchActivity.class);
+        Intent name = new Intent(this, PrematchActivity.class);
         startActivity(name);
     }
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeteaminfoPage(View view){
-        Intent name = new Intent(this, teamInfo.class);
+        Intent name = new Intent(this, TeamInfo.class);
         startActivity(name);
     }
 
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void settings(){
-            Intent name = new Intent(this, settingsGUI.class);
+            Intent name = new Intent(this, SettingsGUI.class);
             startActivity(name);
     }
 

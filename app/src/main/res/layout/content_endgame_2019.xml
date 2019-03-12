@@ -2,128 +2,155 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    tools:showIn="@layout/activity_endgame">
-
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:minHeight="700dp">
 
-    <SeekBar
-        android:id="@+id/climbSeekBar"
-        android:layout_width="303dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:max="100"
-        android:progress="0"
-        android:thumbTint="#663399"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/climbTimeTitle"
-        app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/climbLevelTitle"
+            android:layout_width="191dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="42dp"
+            android:gravity="center"
+            android:text="@string/climb"
+            android:textColor="#663399"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/final_climb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-    <CheckBox
-        android:id="@+id/lvl1checkBox"
-        android:layout_width="113dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Level 1"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.085" />
+        </TextView>
 
-    <CheckBox
-        android:id="@+id/lvl2checkBox"
-        android:layout_width="113dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Level 2"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvl1checkBox"
-        app:layout_constraintVertical_bias="0.002" />
+        <RadioGroup
+            android:id="@+id/final_climb"
+            android:layout_width="278dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/climbLevelTitle">
 
-    <CheckBox
-        android:id="@+id/lvl3checkBox"
-        android:layout_width="113dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Level 3"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvl2checkBox"
-        app:layout_constraintVertical_bias="0.0" />
+            <RadioButton
+                android:id="@+id/lvl1Button"
+                android:layout_width="73dp"
+                android:layout_height="73dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/level_1"
+                tools:text="@string/level_1" />
 
-    <TextView
-        android:id="@+id/deadnessTitle"
-        android:layout_width="191dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="Deadness (%)"
-        android:textColor="#663399"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/climbSeekBar"
-        app:layout_constraintVertical_bias="0.0" />
+            <RadioButton
+                android:id="@+id/lvl2Button"
+                android:layout_width="73dp"
+                android:layout_height="73dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/level_2"
+                tools:text="@string/level_2" />
 
-    <SeekBar
-        android:id="@+id/deadnessSeekBar"
-        android:layout_width="303dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:max="100"
-        android:thumbTint="#663399"
-        android:progress="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deadnessTitle"
-        app:layout_constraintVertical_bias="0.0" />
+            <RadioButton
+                android:id="@+id/lvl3Button"
+                android:layout_width="73dp"
+                android:layout_height="73dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/level_3"
+                tools:text="@string/level_3" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/climbTimeTitle"
+            android:layout_width="243dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/climb_time_sec"
+            android:textColor="#663399"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/final_climb"
+            app:layout_constraintVertical_bias="0.005" />
+
+        <SeekBar
+            android:id="@+id/climbSeekBar"
+            android:layout_width="303dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:max="100"
+            android:progress="0"
+            android:thumbTint="#663399"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/climbTimeTitle"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <TextView
+            android:id="@+id/deadnessTitle"
+            android:layout_width="191dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/deadness"
+            android:textColor="#663399"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/climbSeekBar"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <SeekBar
+            android:id="@+id/deadnessSeekBar"
+            android:layout_width="303dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:max="100"
+            android:progress="0"
+            android:thumbTint="#663399"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deadnessTitle"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/defenseTitle"
@@ -143,46 +170,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/deadnessSeekBar"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.013" />
 
-    <SeekBar
-        android:id="@+id/defenceSeekbar"
-        android:layout_width="303dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:max="100"
-        android:thumbTint="#663399"
-        android:progress="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/defenseTitle"
-        app:layout_constraintVertical_bias="0.0" />
+        <SeekBar
+            android:id="@+id/defenceSeekbar"
+            android:layout_width="303dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:max="100"
+            android:progress="0"
+            android:thumbTint="#663399"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/defenseTitle"
+            app:layout_constraintVertical_bias="0.003" />
 
-    <TextView
-        android:id="@+id/climbTimeTitle"
-        android:layout_width="191dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="Climb Time (sec)"
-        android:textColor="#663399"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvl3checkBox"
-        app:layout_constraintVertical_bias="0.055" />
 
         <Button
             android:id="@+id/exitButton"
@@ -194,74 +203,68 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Exit"
-            android:onClick="exitPage"
-            android:textColor="@color/white"
             android:background="@drawable/roundedbutton"
+            android:onClick="exitPage"
+            android:text="@string/exit"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/defenceSeekbar"
-            app:layout_constraintVertical_bias="0.316" />
+            app:layout_constraintVertical_bias="0.037" />
 
-    <LinearLayout
+        <LinearLayout
 
-        android:id="@+id/comments"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exitButton"><![CDATA[
-
-            android:layout_width="wrap_content"
+            android:id="@+id/comments"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exitButton">
 
-            ]]>
+            <EditText
+                android:id="@+id/teamNumber"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:focusableInTouchMode="true"
+                android:hint="Team"
+                android:inputType="number"
+                android:nextFocusLeft="@id/comment"
+                android:nextFocusUp="@id/comment" />
 
-        <EditText
-            android:id="@+id/teamNumber"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:focusableInTouchMode="true"
-            android:hint="Team"
-            android:inputType="number"
-            android:nextFocusLeft="@id/comment"
-            android:nextFocusUp="@id/comment" />
+            <EditText
+                android:id="@+id/comment"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:focusableInTouchMode="true"
+                android:hint="Comment"
+                android:inputType="text"
+                android:nextFocusLeft="@id/comment"
+                android:nextFocusUp="@id/comment" />
 
-        <EditText
-            android:id="@+id/comment"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:focusableInTouchMode="true"
-            android:hint="Comment"
-            android:inputType="text"
-            android:nextFocusLeft="@id/comment"
-            android:nextFocusUp="@id/comment" />
-
-        <Button
-            android:id="@+id/goButton"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:background="@drawable/roundedbutton"
-            android:text="Go"
-            android:textColor="@color/white" />
+            <Button
+                android:id="@+id/goButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/roundedbutton"
+                android:text="Go"
+                android:onClick="goHandler"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
 
     </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+</ScrollView>

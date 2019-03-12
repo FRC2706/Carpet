@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import mergerobotics.memo.R;
 
-public class teamInfo extends AppCompatActivity {
+public class SettingsGUI extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_team_info);
+        setContentView(R.layout.activity_settings);
     }
 }

@@ -51,7 +51,7 @@ public class Event implements Comparable<Event>, Serializable {
     public String extra;
     public String scoutName;
     public int scoutTeam;
-    public String signature;
+    public String signature; // using to store phase for now
 
 
     /**
@@ -76,7 +76,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.extra = comments;
         this.scoutName = scout;
         this.scoutTeam = scoutingTeam;
-        this.signature = ""; //hardcoded text for now
+        this.signature = phase.toString();
 
     }
 
@@ -100,7 +100,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.extra = comments;
         this.scoutName = scout;
         this.scoutTeam = scoutingTeam;
-        this.signature = ""; //hardcoded text for now
+        this.signature = phase.toString();
 
     }
 
@@ -125,7 +125,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.extra = comments;
         this.scoutName = scout;
         this.scoutTeam = scoutingTeam;
-        this.signature = ""; //hardcoded text for now
+        this.signature = phase.toString();
 
     }
 

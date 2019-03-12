@@ -19,7 +19,7 @@ import mergerobotics.memo.db.EventsDbAdapter;
 import static mergerobotics.memo.db.EventsDbAdapter.EVENT_REF;
 import static mergerobotics.memo.utilities.Utilities.toastPlusLog;
 
-public class sandstormActivity extends AppCompatActivity {
+public class SandstormActivity extends AppCompatActivity {
     // definitions for data sharing btw activities (via putExtra)
     private static final String SCOUT_NAME = "scout";
     private static final String SCOUT_TEAM = "scoutTeam";
@@ -71,15 +71,15 @@ public class sandstormActivity extends AppCompatActivity {
                     tvGameTime.setText("Times Up");
                 } else {
                     remainTime--;
-                    int minuets = remainTime / 60;
-                    int remainSec = remainTime - minuets * 60;
+                    int minutes = remainTime / 60;
+                    int remainSec = remainTime - minutes * 60;
                     String remainSecString;
                     if (remainSec < 10)
                         remainSecString = "0" + remainSec;
                     else
                         remainSecString = remainSec + "";
 // woo
-                    tvGameTime.setText(minuets + ":" + remainSecString);
+                    tvGameTime.setText(minutes + ":" + remainSecString);
 
                     // set an alarm to run this again in 1 second
                     if (!stopTimer)
@@ -132,7 +132,7 @@ public class sandstormActivity extends AppCompatActivity {
     }
 
     public void teleopPage(View view){
-        Intent teleopIntent = new Intent(this, teleopActivity2019.class);
+        Intent teleopIntent = new Intent(this, TeleopActivity.class);
 
         // Pass on the event data to the teleop activity
         teleopIntent.putExtra(EVENT_REF, currentEvent);

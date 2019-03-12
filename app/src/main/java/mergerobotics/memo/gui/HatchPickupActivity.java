@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -35,6 +34,7 @@ public class HatchPickupActivity extends AppCompatActivity {
         // Extract the data passed from previous activity via the intent extras
         Intent thisIntent = getIntent(); // retrieve intent once
         currentEvent = (Event) thisIntent.getSerializableExtra(EVENT_REF);
+        currentEvent.eventType = Event.Cycle.HATCH.toString();
 
         // Load the layout based on whether we are in Autonomous or Teleop phase
         if (currentEvent.phase == Event.Phase.TELEOP) {
@@ -105,7 +105,6 @@ public class HatchPickupActivity extends AppCompatActivity {
         Toast myToast = Toast.makeText(this, "Cancelled",
                 Toast.LENGTH_SHORT);
         myToast.show();
-        Log.i(getClass().getName(), "Cancelled"); // remove later
 
         finish();
 

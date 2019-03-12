@@ -15,7 +15,7 @@ import mergerobotics.memo.dataobjects.Event;
 
 import static mergerobotics.memo.db.EventsDbAdapter.EVENT_REF;
 
-public class teleopActivity2019 extends AppCompatActivity {
+public class TeleopActivity extends AppCompatActivity {
 
     Event currentEvent;
 
@@ -32,9 +32,11 @@ public class teleopActivity2019 extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Extract the data passed from previous activity via the intent extras
+        // Extract the data passed from previous activity via the intent extras and update
         Intent thisIntent = getIntent(); // retrieve intent once
         currentEvent = (Event) thisIntent.getSerializableExtra(EVENT_REF);
+        currentEvent.signature = Event.Phase.TELEOP.toString();
+        currentEvent.phase = Event.Phase.TELEOP;
 
         final TextView tvGameTime = (TextView) findViewById(R.id.timer_textView);
         m_handler = new Handler();
@@ -46,15 +48,15 @@ public class teleopActivity2019 extends AppCompatActivity {
                     tvGameTime.setText("Time Up");
                 } else {
                     remainTime--;
-                    int minuets = remainTime / 60;
-                    int remainSec = remainTime - minuets * 60;
+                    int minutes = remainTime / 60;
+                    int remainSec = remainTime - minutes * 60;
                     String remainSecString;
                     if (remainSec < 10)
                         remainSecString = "0" + remainSec;
                     else
                         remainSecString = remainSec + "";
 // woo
-                    tvGameTime.setText(minuets + ":" + remainSecString);
+                    tvGameTime.setText(minutes + ":" + remainSecString);
 
                     // set an alarm to run this again in 1 second
                     if (!stopTimer)
@@ -66,7 +68,7 @@ public class teleopActivity2019 extends AppCompatActivity {
     }
 
     public void endgamePage(View view){
-        Intent intent = new Intent(this, endgame.class);
+        Intent intent = new Intent(this, EndGameActivity.class);
 
         // Pass on the event instance to the next activity
         currentEvent.phase = Event.Phase.ENDGAME;
@@ -83,7 +85,6 @@ public class teleopActivity2019 extends AppCompatActivity {
         String buttonText = b.getText().toString();
 
         // Update event with game piece selected and phase
-        currentEvent.phase = Event.Phase.TELEOP;
         currentEvent.eventType = buttonText;
         currentEvent.startTime = SystemClock.currentThreadTimeMillis();
 
@@ -99,8 +100,7 @@ public class teleopActivity2019 extends AppCompatActivity {
         Button b = (Button)view;
         String buttonText = b.getText().toString();
 
-        // Update event with game piece selected and phase
-        currentEvent.phase = Event.Phase.TELEOP;
+        // Update event with game piece selected
         currentEvent.eventType = buttonText;
         currentEvent.startTime = SystemClock.currentThreadTimeMillis();
 

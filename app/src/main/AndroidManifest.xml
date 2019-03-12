@@ -19,22 +19,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".gui.teamInfo"></activity>
-        <activity android:name=".gui.settingsGUI" />
-        <activity android:name=".gui.endgame" />
+        <activity android:name=".gui.TeamInfo"></activity>
+        <activity android:name=".gui.SettingsGUI" />
+        <activity android:name=".gui.EndGameActivity" />
         <activity
             android:name=".gui.TestAndExport"
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".gui.teleopActivity2019"
+            android:name=".gui.TeleopActivity"
             android:label="@string/title_activity_teleop_2019"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".gui.sandstormActivity"
+            android:name=".gui.SandstormActivity"
             android:label="@string/title_activity_sandstorm"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".gui.prematchActivity" />
+        <activity android:name=".gui.PrematchActivity" />
         <activity
             android:name=".gui.StartLevelActivity"
             android:label="@string/start_level"
