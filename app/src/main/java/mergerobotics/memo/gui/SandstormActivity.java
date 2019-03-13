@@ -56,7 +56,7 @@ public class SandstormActivity extends AppCompatActivity {
         scoutTeam = thisIntent.getIntExtra(SCOUT_TEAM, 2706);
         matchNum = thisIntent.getIntExtra(MATCH, 0);
 
-        currentEvent = new Event(Event.Phase.AUTONOMOUS, "NIL",
+        currentEvent = new Event(Event.Phase.AUTONOMOUS, Event.Cycle.NIL.toString(),
                 teamNum, matchNum,
                 " ", scoutName, scoutTeam);
 
@@ -137,6 +137,9 @@ public class SandstormActivity extends AppCompatActivity {
         // Pass on the event data to the teleop activity
         teleopIntent.putExtra(EVENT_REF, currentEvent);
         startActivity(teleopIntent);
+
+        // return to main activity when teleop finishes
+        finish();
     }
 
     //OnClick methods for cargo, hatch and delivery buttons

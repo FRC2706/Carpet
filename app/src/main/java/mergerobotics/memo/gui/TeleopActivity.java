@@ -8,15 +8,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import mergerobotics.memo.R;
 import mergerobotics.memo.dataobjects.Event;
+import mergerobotics.memo.db.EventsDbAdapter;
 
 import static mergerobotics.memo.db.EventsDbAdapter.EVENT_REF;
+import static mergerobotics.memo.utilities.Utilities.toastPlusLog;
 
 public class TeleopActivity extends AppCompatActivity {
 
+    //For comment fields
+    EditText commentText, commentTeamText;
+
+    //For ease of sharing event data
     Event currentEvent;
 
     //timer variables
@@ -45,7 +52,7 @@ public class TeleopActivity extends AppCompatActivity {
             public void run() {
 
                 if (remainTime == 0) {
-                    tvGameTime.setText("Time Up");
+                    tvGameTime.setText("Times Up");
                 } else {
                     remainTime--;
                     int minutes = remainTime / 60;
@@ -74,6 +81,9 @@ public class TeleopActivity extends AppCompatActivity {
         currentEvent.phase = Event.Phase.ENDGAME;
         intent.putExtra(EVENT_REF, currentEvent);
         startActivity(intent);
+
+        // return to previous activity when endgame finishes
+        finish();
     }
 
     //OnClick methods for popups
@@ -96,7 +106,7 @@ public class TeleopActivity extends AppCompatActivity {
     public void hatchPickupPage(View view){
         Intent intent = new Intent(this, HatchPickupActivity.class);
 
-        // @TODO Determine the game piece type from button label to make more generic
+        // @TODO can change to gamepiecePickup method and use the Button text to determine next activity
         Button b = (Button)view;
         String buttonText = b.getText().toString();
 
@@ -107,6 +117,43 @@ public class TeleopActivity extends AppCompatActivity {
         // Pass on the event instance to the next activity
         intent.putExtra(EVENT_REF, currentEvent);
         startActivity(intent);
+    }
+
+    public void goHandler(View view){
+
+        // GO button has been pushed, get the user's comment data if any
+        commentText = (EditText) findViewById(R.id.comment);
+        String comments = commentText.getText().toString();
+
+        // Create an event to store the comment if not empty, team part of the comment can be empty
+        if (!comments.matches("")) {
+            int cTeam = currentEvent.teamNum; // default to the team number being scouted
+
+            commentTeamText = findViewById(R.id.teamNumber);
+            String commentTeam = commentTeamText.getText().toString();
+
+            if (!commentTeam.matches("")) {
+                // GUI ensures that a number was entered
+                cTeam = Integer.parseInt(commentTeam);
+            }
+
+            Event commentEvent = new Event(Event.Phase.TELEOP, Event.Cycle.COMMENT.toString(),
+                    cTeam, currentEvent.match, comments, currentEvent.scoutName, currentEvent.scoutTeam);
+            commentEvent.startTime = SystemClock.currentThreadTimeMillis();
+
+            // Save the event in the database
+            EventsDbAdapter eDB = new EventsDbAdapter(this);
+            eDB.open();
+
+            // Insert the event
+            long id = eDB.insertData(commentEvent);
+
+            // Could provide a better failure message later if desired, keeping as is for now as the
+            // id will give the key number of the entry in the table providing a warm fuzzy on how
+            // many entries are in the db
+            toastPlusLog(this, "Comment saved " + Long.toString(id));
+        }
+        commentText.clearFocus();
     }
 
 }

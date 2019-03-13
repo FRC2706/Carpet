@@ -228,14 +228,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toTeleop"><![CDATA[
+            app:layout_constraintTop_toBottomOf="@+id/toTeleop">
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
-
-            ]]>
+            <!-- this empty linear layout is the trick to taking the focus off the Text boxes -->
+            <LinearLayout android:focusable="true"
+                android:focusableInTouchMode="true" android:layout_width="0px"
+                android:layout_height="0px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <EditText
                 android:id="@+id/teamNumber"
@@ -245,9 +246,8 @@
                 android:focusableInTouchMode="true"
                 android:hint="@string/team"
                 android:inputType="number"
-                android:nextFocusLeft="@id/hatch_button"                 android:nextFocusUp="@id/comment" />
-                android:nextFocusUp="@id/hatch_button"
-                android:nextFocusRight="@id/comment" />
+                android:nextFocusLeft="@id/hatch_button"
+                android:nextFocusUp="@id/comment" />
 
             <EditText
                 android:id="@+id/comment"
