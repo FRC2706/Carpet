@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 
 import mergerobotics.memo.R;
@@ -42,6 +43,15 @@ public class EndGameActivity extends AppCompatActivity {
         currentEvent = (Event) thisIntent.getSerializableExtra(EVENT_REF);
         currentEvent.phase = Event.Phase.ENDGAME;
         currentEvent.signature = Event.Phase.ENDGAME.toString();
+
+        // Set up one Climb event to keep track of Climb level radio button results if any
+        climbEvent = new Event(Event.Phase.ENDGAME, Event.Cycle.CLIMB.toString(),
+                currentEvent.teamNum, currentEvent.match, Event.Cycle.NIL.toString(),
+                currentEvent.scoutName, currentEvent.scoutTeam);
+
+        // Set focus to the Climb Level view
+        RadioGroup climbRG =(RadioGroup)findViewById(R.id.final_climb);
+//        climbRG.setFocusedByDefault(true);
 
         // Set up handlers for climb time Seekbar
         climbTimeSeekbar =(SeekBar)findViewById(R.id.climbSeekBar);
@@ -105,20 +115,26 @@ public class EndGameActivity extends AppCompatActivity {
     }
 
     public void onRadioButtonClicked(View view) {
+
         // Update the CLIMB event each time a level radio button is selected
         boolean checked = ((RadioButton) view).isChecked();
-        climbEvent = currentEvent; // Initialize to same values, overwrite pertinent fields
-        climbEvent.timestamp = SystemClock.currentThreadTimeMillis();
-        climbEvent.eventType = Event.Cycle.CLIMB.toString();
 
-        // Determine the level from the button label
-        Button b = (Button)view;
-        String buttonText = b.getText().toString();
-        climbEvent.extra = buttonText; // we use the extra field for many things based on event type
+        if (checked) {
+            climbEvent.timestamp = SystemClock.currentThreadTimeMillis();
+            climbEvent.eventType = Event.Cycle.CLIMB.toString();
 
-        // Climb event will change as the user selects level radio buttons, it will eventually be
-        // saved to the database on Exit with the final selection, if any
+            // Determine the level from the button label
+            Button b = (Button) view;
+            String buttonText = b.getText().toString();
+            climbEvent.extra = buttonText; // we use the extra field for many things based on event type
 
+            // Climb event will change as the user selects level radio buttons, it will eventually be
+            // saved to the database on Exit with the final selection, if any
+        }
+        else {
+            //Clear the extra field with the climb level
+            climbEvent.extra = Event.Cycle.NIL.toString();
+        }
     }
 
     public void exitPage(View view){
@@ -130,7 +146,7 @@ public class EndGameActivity extends AppCompatActivity {
         // Update final events in the database before leaving
 
         // if the climbEvent was updated by user input, save it to db
-        if (climbEvent.compareTo(currentEvent) == 1) {
+        if (!climbEvent.extra.equalsIgnoreCase(Event.Cycle.NIL.toString())) {
             // Store the event in the database
             id = eDB.insertData(climbEvent);
             if(id<=0)
@@ -182,8 +198,9 @@ public class EndGameActivity extends AppCompatActivity {
         }
 
         // Exit the match, return to Main Activity
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, MainActivity.class);
+        //startActivity(intent);
+        finish(); // use finish for preferred resource cleanup
     }
 
     public void goHandler(View view){

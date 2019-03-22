@@ -62,6 +62,9 @@ public class PrematchActivity extends AppCompatActivity {
             nextIntent.putExtra(MATCH, iMatch);
 
             startActivity(nextIntent);
+
+            // return to main activity when teleop finishes
+            finish();
         }
 
     }
