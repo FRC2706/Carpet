@@ -100,7 +100,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toTeleop">
+        app:layout_constraintTop_toBottomOf="@+id/testButton">
 
         <EditText
             android:id="@+id/teamNumber"
@@ -110,9 +110,7 @@
             android:focusableInTouchMode="true"
             android:hint="@string/team"
             android:inputType="number"
-            android:nextFocusLeft="@id/hatch_button"                 android:nextFocusUp="@id/comment" />
-        android:nextFocusUp="@id/hatch_button"
-        android:nextFocusRight="@id/comment" />
+            android:nextFocusRight="@id/comment" />
 
         <EditText
             android:id="@+id/comment"
@@ -123,17 +121,18 @@
             android:hint="@string/comment"
             android:inputType="text"
             android:nextFocusLeft="@id/teamNumber"
-            android:nextFocusUp="@id/hatch_button" />
+            android:nextFocusUp="@id/goButton"
+            android:nextFocusRight="@id/goButton" />
 
         <Button
             android:id="@+id/goButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
             android:background="@drawable/roundedbutton"
             android:onClick="goHandler"
             android:text="@string/go"
-            android:nextFocusUp="@+id/hatch_button"
+            android:nextFocusUp="@+id/imageButton"
             android:textColor="@color/white" />
 
     </LinearLayout>
