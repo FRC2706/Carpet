@@ -110,7 +110,7 @@
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/climbTimeTitle"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0" tools:targetApi="lollipop" />
 
 
         <TextView
@@ -150,7 +150,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/deadnessTitle"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0" tools:targetApi="lollipop" />
 
         <TextView
             android:id="@+id/defenseTitle"
@@ -163,7 +163,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="Defense (%)"
+            android:text="@string/defense"
             android:textColor="#663399"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -190,7 +190,7 @@
             app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/defenseTitle"
-            app:layout_constraintVertical_bias="0.003" />
+            app:layout_constraintVertical_bias="0.003" tools:targetApi="lollipop" />
 
 
         <Button
@@ -218,15 +218,13 @@
 
             android:id="@+id/comments"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="51dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="24dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/exitButton">
@@ -244,32 +242,36 @@
                 android:id="@+id/teamNumber"
                 android:layout_width="95dp"
                 android:layout_height="wrap_content"
+                android:autofillHints="@string/team"
                 android:ems="10"
                 android:focusableInTouchMode="true"
-                android:hint="Team"
+                android:hint="@string/team"
                 android:inputType="number"
                 android:nextFocusLeft="@id/comment"
-                android:nextFocusUp="@id/comment" />
+                android:nextFocusUp="@id/comment"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/comment"
                 android:layout_width="180dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:ems="10"
                 android:focusableInTouchMode="true"
-                android:hint="Comment"
+                android:hint="@string/comment"
+                android:importantForAutofill="no"
                 android:inputType="text"
                 android:nextFocusLeft="@id/comment"
-                android:nextFocusUp="@id/comment" />
+                android:nextFocusUp="@id/comment"
+                tools:targetApi="o" />
 
             <Button
                 android:id="@+id/goButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/roundedbutton"
                 android:onClick="goHandler"
-                android:text="Go"
+                android:text="@string/go"
                 android:textColor="@color/white" />
 
         </LinearLayout>

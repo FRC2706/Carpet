@@ -44,4 +44,6 @@
     <string name="exit">Exit</string>
     <string name="climb_time_sec">Climb Time (sec)</string>
     <string name="climb">Climb Level</string>
+    <string name="timesUp">Times Up</string>
+    <string name="defense">Defense (%)</string>
 </resources>

@@ -1,5 +1,6 @@
 package mergerobotics.memo.gui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import mergerobotics.memo.R;
@@ -131,8 +133,20 @@ public class MainActivity extends AppCompatActivity {
                 // Could provide a better failure message later if desired, keeping as is for now as the
                 // id will give the key number of the entry in the table providing a warm fuzzy on how
                 // many entries are in the db
-                toastPlusLog(this, "Comment event write result " + Long.toString(id));
+                toastPlusLog(this, "Comment written " + Long.toString(id));
+
+                // Ensure the keyboard is gone (will be left up if user did not click Done)
+                // The try block is required in case the user did click Done
+                try {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                } catch(Exception ignored) {
+                }
             }
+            // Clear the comment field after updating db
+            commentText.setText("");
+            commentTeamText.setText("");
+
             commentText.clearFocus();
         }
         else {

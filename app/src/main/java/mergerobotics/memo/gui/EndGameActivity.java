@@ -1,15 +1,17 @@
 package mergerobotics.memo.gui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import mergerobotics.memo.R;
 import mergerobotics.memo.dataobjects.Event;
@@ -49,9 +51,10 @@ public class EndGameActivity extends AppCompatActivity {
                 currentEvent.teamNum, currentEvent.match, Event.Cycle.NIL.toString(),
                 currentEvent.scoutName, currentEvent.scoutTeam);
 
-        // Set focus to the Climb Level view
-        RadioGroup climbRG =(RadioGroup)findViewById(R.id.final_climb);
-//        climbRG.setFocusedByDefault(true);
+
+        // Default the team number in the comment area to this team number
+        final TextView commentTeam = findViewById(R.id.teamNumber);
+        commentTeam.setText(Integer.toString(currentEvent.teamNum));
 
         // Set up handlers for climb time Seekbar
         climbTimeSeekbar =(SeekBar)findViewById(R.id.climbSeekBar);
@@ -232,10 +235,16 @@ public class EndGameActivity extends AppCompatActivity {
             // Insert the event
             long id = eDB.insertData(commentEvent);
 
-            // Could provide a better failure message later if desired, keeping as is for now as the
-            // id will give the key number of the entry in the table providing a warm fuzzy on how
-            // many entries are in the db
-            toastPlusLog(this, "Comment saved " + Long.toString(id));
+            // Clear the comment field after updating db
+            commentText.setText("");
+
+            // Ensure the keyboard is gone (will be left up if user did not click Done)
+            // The try block is required in case the user did click Done
+            try {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            } catch(Exception ignored) {
+            }
         }
         commentText.clearFocus();
     }

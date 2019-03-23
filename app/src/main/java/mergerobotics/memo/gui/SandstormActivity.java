@@ -1,5 +1,6 @@
 package mergerobotics.memo.gui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -60,7 +62,11 @@ public class SandstormActivity extends AppCompatActivity {
                 teamNum, matchNum,
                 " ", scoutName, scoutTeam);
 
+        // Default the team number in the comment area to this team number
+        final TextView commentTeam = findViewById(R.id.teamNumber);
+        commentTeam.setText(Integer.toString(teamNum));
 
+        // Set up the countdown timer
         final TextView tvGameTime = (TextView) findViewById(R.id.autoTimer);
         m_handler = new Handler();
         m_handlerTask = new Runnable() {
@@ -68,7 +74,7 @@ public class SandstormActivity extends AppCompatActivity {
             public void run() {
 
                 if (remainTime == 0) {
-                    tvGameTime.setText("Times Up");
+                    tvGameTime.setText(getString(R.string.timesUp));
                 } else {
                     remainTime--;
                     int minutes = remainTime / 60;
@@ -147,24 +153,23 @@ public class SandstormActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CargoPickupActivity.class);
         // Determine the game piece type from button label
         Button b = (Button)view;
-        String buttonText = b.getText().toString();
 
         // Update event with game piece input based on button selection
-        currentEvent.eventType = buttonText;
+        currentEvent.eventType = b.getText().toString();
         currentEvent.startTime = SystemClock.currentThreadTimeMillis();
 
         // Pass on the event instance to the next activity
         intent.putExtra(EVENT_REF, currentEvent);
         startActivity(intent);
     }
+
     public void hatchPickupPage(View view){
         Intent intent = new Intent(this, HatchPickupActivity.class);
         // Determine the game piece type from button label
         Button b = (Button)view;
-        String buttonText = b.getText().toString();
 
         // Update event with game piece input based on button selection
-        currentEvent.eventType = buttonText;
+        currentEvent.eventType = b.getText().toString();
         currentEvent.startTime = SystemClock.currentThreadTimeMillis();
 
         // Pass on the event instance to the next activity
@@ -201,10 +206,16 @@ public class SandstormActivity extends AppCompatActivity {
             // Insert the event
             long id = eDB.insertData(commentEvent);
 
-            // Could provide a better failure message later if desired, keeping as is for now as the
-            // id will give the key number of the entry in the table providing a warm fuzzy on how
-            // many entries are in the db
-            toastPlusLog(this, "Comment event write result " + Long.toString(id));
+            // Clear the comment field after updating db
+            commentText.setText("");
+
+            // Ensure the keyboard is gone (will be left up if user did not click Done)
+            // The try block is required in case the user did click Done
+            try {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            } catch(Exception ignored) {
+            }
         }
         commentText.clearFocus();
     }

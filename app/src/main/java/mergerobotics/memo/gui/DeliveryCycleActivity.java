@@ -1,12 +1,15 @@
 package mergerobotics.memo.gui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import mergerobotics.memo.R;
@@ -32,6 +35,10 @@ public class DeliveryCycleActivity extends AppCompatActivity {
         // Extract the data passed from previous activity via the intent extras
         thisIntent = getIntent(); // retrieve intent once
         currentEvent = (Event) thisIntent.getSerializableExtra(EVENT_REF);
+
+        // Default the team number in the comment area to this team number
+        TextView commentTeam = findViewById(R.id.teamNumber);
+        commentTeam.setText(Integer.toString(currentEvent.teamNum));
     }
 
     public void deliveryHandler(View view) {
@@ -83,10 +90,10 @@ public class DeliveryCycleActivity extends AppCompatActivity {
         EditText commentText, commentTeamText;
 
         // GO button has been pushed, get the user's comment data if any
-        commentText = (EditText) findViewById(R.id.comment);
+        commentText = findViewById(R.id.comment);
         String comments = commentText.getText().toString();
 
-        // Create an event to store the comment if not empty, team part of the comment can be empty
+        // Create an event to store the comment if not empty, team part of the comment will default
         if (!comments.matches("")) {
             int cTeam = currentEvent.teamNum; // default to the team number being scouted
 
@@ -109,10 +116,16 @@ public class DeliveryCycleActivity extends AppCompatActivity {
             // Insert the event
             long id = eDB.insertData(commentEvent);
 
-            // Could provide a better failure message later if desired, keeping as is for now as the
-            // id will give the key number of the entry in the table providing a warm fuzzy on how
-            // many entries are in the db
-            toastPlusLog(this, "Comment event write result " + Long.toString(id));
+            // Clear the comment field after updating db
+            commentText.setText("");
+
+            // Ensure the keyboard is gone (will be left up if user did not click Done)
+            // The try block is required in case the user did click Done
+            try {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            } catch(Exception ignored) {
+            }
         }
         commentText.clearFocus();
     }
