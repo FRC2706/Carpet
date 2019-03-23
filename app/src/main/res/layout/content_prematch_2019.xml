@@ -7,7 +7,7 @@
     tools:showIn="@layout/activity_prematch">
 
     <EditText
-        android:id="@+id/teamName"
+        android:id="@+id/scoutName"
         android:layout_width="259dp"
         android:layout_height="67dp"
         android:layout_alignEnd="@+id/teamNum"
@@ -22,8 +22,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
+        android:hint="Enter Scout Name"
         android:inputType="textPersonName"
-        android:text="Enter Scout Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,11 +44,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
+        android:hint="Enter Team Number"
         android:inputType="number"
-        android:text="Enter Team Number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamName" />
+        app:layout_constraintTop_toBottomOf="@+id/scoutName" />
 
     <EditText
         android:id="@+id/matchNum"
@@ -66,14 +66,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
+        android:hint="Enter match number"
         android:inputType="number"
-        android:text="Enter match number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/teamNum" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/startMatchbutton"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="183dp"
         android:layout_height="65dp"

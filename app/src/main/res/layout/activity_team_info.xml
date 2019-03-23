@@ -4,18 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.EndGameActivity">
+    tools:context=".gui.TeamInfo">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
-        tools:ignore="MissingConstraints">
-
-
+        tools:ignore="MissingConstraints" >
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_endgame_2019" />
+    <include layout="@layout/content_display_team_info" />
 
 </android.support.constraint.ConstraintLayout>

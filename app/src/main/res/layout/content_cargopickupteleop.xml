@@ -3,41 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="500dp">
+    android:layout_height="450dp">
 
     <Button
         android:id="@+id/cancel_button"
-        android:layout_width="191dp"
-        android:layout_height="73dp"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/roundedbutton_grey"
-        android:onClick="teleopPage"
+        android:onClick="cancelled"
         android:text="@android:string/cancel"
-        android:textSize="22sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loadingstation_button" />
-
-    <Button
-        android:id="@+id/loadingstation_button"
-        android:layout_width="387dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/roundedbutton_light_grey"
-        android:text="loading station"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/depot_button" />
+        app:layout_constraintTop_toBottomOf="@+id/ground_button" />
 
     <TextView
         android:id="@+id/title_textview"
@@ -45,62 +29,66 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Cargo pickup"
+        android:text= "@string/cargo_pickup"
         android:textColor="#8470ad"
-        android:textSize="36sp"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/preloaded_button"
-        android:layout_width="387dp"
-        android:layout_height="73dp"
+        android:id="@+id/loadingstation_button"
+        android:layout_width="179dp"
+        android:layout_height="44dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/roundedbutton_grey"
-        android:text="Pre-loaded"
-        android:textSize="22sp"
+        android:onClick="cargoPickupHandler"
+        android:text="@string/loading_station"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_textview" />
 
-    <Button
-        android:id="@+id/depot_button"
-        android:layout_width="387dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/roundedbutton_grey"
-        android:text="depot"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ground_button" />
 
     <Button
-        android:id="@+id/ground_button"
-        android:layout_width="387dp"
-        android:layout_height="73dp"
+        android:id="@+id/depot_button"
+        android:layout_width="179dp"
+        android:layout_height="44dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/roundedbutton_light_grey"
-        android:text="ground"
-        android:textSize="22sp"
+        android:onClick="cargoPickupHandler"
+        android:text="@string/depot"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/preloaded_button" />
+        app:layout_constraintTop_toBottomOf="@+id/loadingstation_button" />
+
+    <Button
+        android:id="@+id/ground_button"
+        android:layout_width="179dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/roundedbutton_grey"
+        android:onClick="cargoPickupHandler"
+        android:text="@string/ground"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/depot_button" />
+
 </android.support.constraint.ConstraintLayout>

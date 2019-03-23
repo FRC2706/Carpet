@@ -7,8 +7,52 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main"
-    tools:context="mergerobotics.memo.MainActivity">
+    tools:context="mergerobotics.memo.gui.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:measureWithLargestChild="false"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="28dp">
+        <!-- this empty linear layout is the trick to taking the focus off the Text boxes -->
+        <LinearLayout android:focusable="true"
+            android:focusableInTouchMode="true" android:layout_width="0px"
+            android:layout_height="0px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0" />
+
+        <AutoCompleteTextView
+            android:id="@+id/searchView"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:focusable="true"
+            android:gravity="right"
+            android:inputType="number"
+            android:queryHint="Team #"
+            android:textColor="#663399"/>
+
+
+        <ImageButton
+            android:id="@+id/team_info_searchBtn"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:src="@drawable/ic_search" />
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -25,8 +69,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.082"
         app:srcCompat="@drawable/clipboard" />
 
     <Button
@@ -39,7 +83,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="testing for ethan"
+        android:text="@string/test_and_export"
         android:onClick="changeTestPage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,4 +91,55 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
         app:layout_constraintVertical_bias="0.227" />
 
+    <LinearLayout
+
+        android:id="@+id/comments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/testButton">
+
+        <EditText
+            android:id="@+id/teamNumber"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusableInTouchMode="true"
+            android:hint="@string/team"
+            android:inputType="number"
+            android:nextFocusRight="@id/comment" />
+
+        <EditText
+            android:id="@+id/comment"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusableInTouchMode="true"
+            android:hint="@string/comment"
+            android:inputType="text"
+            android:nextFocusLeft="@id/teamNumber"
+            android:nextFocusUp="@id/goButton"
+            android:nextFocusRight="@id/goButton" />
+
+        <Button
+            android:id="@+id/goButton"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/roundedbutton"
+            android:onClick="goHandler"
+            android:text="@string/go"
+            android:nextFocusUp="@+id/imageButton"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
