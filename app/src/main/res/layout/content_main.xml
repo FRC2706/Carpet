@@ -51,6 +51,7 @@
             android:layout_height="46dp"
             android:background="@android:color/transparent"
             android:gravity="right"
+            android:onClick="changeteaminfoPage"
             android:src="@drawable/ic_search" />
     </LinearLayout>
 

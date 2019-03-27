@@ -94,6 +94,7 @@
             android:text="@string/TeamNotes"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
